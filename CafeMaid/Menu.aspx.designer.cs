@@ -10,6 +10,6 @@
 namespace CafeMaid {
     
     
-    public partial class About {
+    public partial class Menu {
     }
 }

@@ -10,7 +10,7 @@ using System.Web.UI.WebControls;
 
 namespace CafeMaid
 {
-    public partial class About : Page
+    public partial class Menu : Page
     {
         protected void Page_Load(object sender, EventArgs e)
         {
