@@ -1,9 +1,14 @@
-﻿<%@ Page Title="About" Language="C#" MasterPageFile="~/Site.Master" AutoEventWireup="true" CodeBehind="About.aspx.cs" Inherits="CafeMaid.About" %>
+﻿<%@ Page Language="C#" AutoEventWireup="true" MasterPageFile="~/Site.Master" CodeBehind="Login.aspx.cs" Inherits="CafeMaid.Login" %>
+
 
 <asp:Content ID="BodyContent" ContentPlaceHolderID="MainContent" runat="server">
 
+
+    <form id="form1" runat="server">
+
+
 <html>
-<body class="sub_page">
+<body>
 
   
 
@@ -21,9 +26,20 @@
         <div class="col-md-6">
           <div class="detail-box">
             <div class="heading_container">
-              <h2>
+                <h2>
                 We Are Feane
               </h2>
+             
+                <asp:TextBox  ID="TextBox1" runat="server"></asp:TextBox>
+                    
+                <asp:TextBox  ID="TextBox2" runat="server"></asp:TextBox>             
+            
+          
+              
+            
+                <asp:Button ID="Button1" runat="server" OnClick="Button1_Click" Text="Giriş Yap" />
+              
+            
             </div>
             <p>
              Yeni metin güncellemesi denemesidir.
@@ -45,5 +61,9 @@
 </body>
 
 </html>
-    
-</asp:Content>
+
+
+    </form>
+
+
+   </asp:Content>
