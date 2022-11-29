@@ -23,11 +23,15 @@ namespace CafeMaid
             userModel user = new userModel(0, TextBox1.Text, TextBox2.Text);
             if (querry.LoginUser(user))
             {
-                Response.Write("Basarili.");
+                Session.Timeout = 10;
+                Session.Add("KullaniciAdi", TextBox1.Text);
+                Session.Add("Sifre", TextBox2.Text);
+                
+                Response.Redirect("About.aspx");
             }
             else
             {
-                Console.Write("giriş Başarısız.");
+                Button1.BackColor = System.Drawing.Color.Red;
 
             }
         }
