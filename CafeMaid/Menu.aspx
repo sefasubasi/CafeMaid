@@ -1,11 +1,12 @@
-﻿<%@ Page Title="About" Language="C#" MasterPageFile="~/Site.Master" AutoEventWireup="true" CodeBehind="About.aspx.cs" Inherits="CafeMaid.About" %>
+﻿<%@ Page Title="Menu" Language="C#" MasterPageFile="~/Site.Master" AutoEventWireup="true" CodeBehind="Menu.aspx.cs" Inherits="CafeMaid.Menu" %>
 
 <asp:Content ID="BodyContent" ContentPlaceHolderID="MainContent" runat="server">
 
 <html>
 <body class="sub_page">
+    <script src="Scripts/menuScript.js"></script>
 
-  
+   
 
   <!-- about section -->
 
@@ -20,10 +21,13 @@
         </div>
         <div class="col-md-6">
           <div class="detail-box">
-            <div class="heading_container">
+            <div id="contentFiled" class="heading_container">
               <h2>
                 We Are Feane
               </h2>
+                 <p onclick="KategoriList()">kategoriGetir</p>
+                 <p onclick="UrunList()">urunler</p>
+
             </div>
             <p>
              Yeni metin güncellemesi denemesidir.
@@ -45,5 +49,4 @@
 </body>
 
 </html>
-    
 </asp:Content>
