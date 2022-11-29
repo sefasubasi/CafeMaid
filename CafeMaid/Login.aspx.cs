@@ -2,6 +2,7 @@
 using CafeMaid.Models;
 using System;
 using System.Collections.Generic;
+using System.Drawing;
 using System.Linq;
 using System.Web;
 using System.Web.UI;
@@ -26,14 +27,23 @@ namespace CafeMaid
                 Session.Timeout = 10;
                 Session.Add("KullaniciAdi", TextBox1.Text);
                 Session.Add("Sifre", TextBox2.Text);
-                
+
                 Response.Redirect("About.aspx");
             }
             else
             {
-                Button1.BackColor = System.Drawing.Color.Red;
+
+                TextBox1.BorderColor = Color.Red;
+                TextBox2.BorderColor = Color.Red;
 
             }
         }
+
+
+        protected void Button2_Click(object sender, EventArgs e)
+        {
+
+        }
+
     }
 }
