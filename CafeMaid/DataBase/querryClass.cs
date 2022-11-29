@@ -84,5 +84,104 @@ namespace CafeMaid.DataBase
             }
 
         }
+
+
+
+        public List<urunModel> urunListesi()
+        // public List<urunModel> stokListesi(int type, string search)
+        {
+            List<urunModel> urunList = new List<urunModel>();
+            SqlCommand cmd = new SqlCommand();
+            SqlDataReader reader;
+
+            cmd.CommandText = "select * from urunTable ";
+
+
+            cmd.CommandType = CommandType.Text;
+            cmd.Connection = dataCon.con;
+
+
+            if (dataCon.con.State == ConnectionState.Closed)
+            {
+
+                dataCon.con.Open();
+
+            }
+
+            reader = cmd.ExecuteReader();
+
+            while (reader.Read())
+            {
+
+                urunModel urun = new urunModel();
+                urun.Id = Convert.ToInt32((String.Format("{0}", reader["id"])));
+                urun.UrunAdi = (String.Format("{0}", reader["urunAdi"]));
+                urun.KategoriId = Convert.ToInt32((String.Format("{0}", reader["urunKategoriId"])));
+                urun.UrunAciklama= (String.Format("{0}", reader["urunAciklama"]));
+                urun.UrunFiyat = (float)Convert.ToDouble((String.Format("{0}", reader["urunFiyat"])));
+
+
+
+
+                urunList.Add(urun);
+                //settingsCihazMarkaCombo.Items.Add(sonuc1);
+
+            }
+            //textBox1.Text = sonuc + "  " + sonuc1;
+            dataCon.con.Close();
+            return urunList;
+        }
+
+
+
+
+        public List<kategoriModel> kategoriListesi()
+        // public List<urunModel> stokListesi(int type, string search)
+        {
+            List<kategoriModel> kategoriList = new List<kategoriModel>();
+            SqlCommand cmd = new SqlCommand();
+            SqlDataReader reader;
+
+            cmd.CommandText = "select * from KategoriTable ";
+
+
+            cmd.CommandType = CommandType.Text;
+            cmd.Connection = dataCon.con;
+
+
+            if (dataCon.con.State == ConnectionState.Closed)
+            {
+
+                dataCon.con.Open();
+
+            }
+
+            reader = cmd.ExecuteReader();
+
+            while (reader.Read())
+            {
+
+                kategoriModel kategori = new kategoriModel();
+                kategori.Id = Convert.ToInt32((String.Format("{0}", reader["id"])));
+                kategori.Value = (String.Format("{0}", reader["value"]));
+
+
+
+
+
+
+                kategoriList.Add(kategori);
+                //settingsCihazMarkaCombo.Items.Add(sonuc1);
+
+            }
+            //textBox1.Text = sonuc + "  " + sonuc1;
+            dataCon.con.Close();
+
+            return kategoriList;
+        }
+
+
+
+
     }
 }
