@@ -16,7 +16,7 @@
   <meta name="author" content="" />
   <link rel="shortcut icon" href="images/favicon.png" type="">
 
-  <title> Feane </title>
+  <title> CafeMaid </title>
 
   <!-- bootstrap core css -->
   <link rel="stylesheet" type="text/css" href="Content/bootstrap.css" />
@@ -32,7 +32,17 @@
   <link href="Content/style.css" rel="stylesheet" />
   <!-- responsive style -->
   <link href="Content/responsive.css" rel="stylesheet" />
+      <style>
+          .dropdown:hover > .dropdown-menu {
+    display: block;
+}
 
+.dropdown > .dropdown-toggle:active {
+    /*Without this, clicking will make it sticky*/
+    pointer-events: none;
+}
+
+      </style>
 </head>
 
 <body>
@@ -50,7 +60,7 @@
         <nav class="navbar navbar-expand-lg custom_nav-container ">
           <a class="navbar-brand" href="index.html">
             <span>
-              Feane
+              CafeMaid
             </span>
           </a>
 
@@ -63,10 +73,16 @@
               <li class="nav-item ">
                 <a class="nav-link" href="index.html">Home </a>
               </li>
+                <li class="nav-item dropdown active">
+                  <a class="nav-link" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                    Menu
+                  </a>
+                  <ul id="down_menu_item" class="dropdown-menu" aria-labelledby="dropdownMenuButton">
+                    <a class="dropdown-item" href="menu.aspx">Tatlılar</a>
+                    <a class="dropdown-item" href="#">İçecekler</a>
+                  </ul>
+                </li>
               <li class="nav-item">
-                <a class="nav-link" href="menu.html">Menu</a>
-              </li>
-              <li class="nav-item active">
                 <a class="nav-link" href="about.html">About <span class="sr-only">(current)</span> </a>
               </li>
               <li class="nav-item">
@@ -193,7 +209,7 @@
         <div class="col-md-4 footer-col">
           <div class="footer_detail">
             <a href="" class="footer-logo">
-              Feane
+              CafeMaid
             </a>
             <p>
               Necessary, making this the first true generator on the Internet. It uses a dictionary of over 200 Latin words, combined with
