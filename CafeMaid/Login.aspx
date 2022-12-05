@@ -34,8 +34,14 @@
  
 }
 </style>
+
+         
+
+
 </head>
 <body class ="sub_page">
+  
+  
 
   
   <section class="about_section layout_padding">
@@ -72,7 +78,6 @@
 </body>
 
 </html>
-
 
     </form>
 
