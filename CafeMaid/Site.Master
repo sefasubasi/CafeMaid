@@ -36,8 +36,67 @@
   <link href="Content/style.css" rel="stylesheet" />
   <!-- responsive style -->
   <link href="Content/responsive.css" rel="stylesheet" />
-      <style>
-          .dropdown:hover > .dropdown-menu {
+<style>
+.search-form{
+    display:inline-block;
+    border-radius:20px;
+    background:#fff;
+    line-height:40px;
+    font-size:18px;
+    box-shadow:0px 0px 3px #111;
+    overflow:hidden;
+    position:relative;
+    width:auto;
+}
+
+.search-form span{
+    width:40px;
+    height:40px;
+    display:inline-block;
+    text-align:center;
+}
+span.slens{
+    position:absolute;
+    z-index:1;
+}
+input#s{
+    width:0px;
+    margin:0px 0px;
+    padding:0px 0px 0px 35px;
+    border:none;
+    vertical-align:top;
+    position:relative;
+    z-index:2;
+    background:transparent;
+    -webkit-transition: width 1s; /* Safari */
+    transition: width 1s; 
+}
+
+input#s:focus{
+    outline:none;
+    width:180px;
+}
+
+
+.slens i{
+    color:#aaa;
+}
+
+input#s + .sclose{
+    width:0px;
+}
+
+input#s:focus + .sclose{
+    width:40px;
+    cursor:pointer;
+}
+
+.sclose i{
+    color:red;
+}
+
+
+.dropdown:hover > .dropdown-menu {
     display: block;
 }
 
@@ -46,7 +105,7 @@
     pointer-events: none;
 }
 
-      </style>
+ </style>
 </head>
 
 <body>
@@ -95,6 +154,12 @@
               </li>
             </ul>
             <div class="user_option">
+                 <div class="search-form">
+  <span class="slens"> <i class="fa fa-search"></i> </span>
+  <input id="s" type="text" />
+  <span class="sclose"><i class="fa fa-times"></i></span>  
+</div>
+
               <a href="Login.aspx" class="user_link">
                 <i class="fa fa-user" aria-hidden="true"></i>
               </a>
@@ -152,14 +217,7 @@
                   </g>
                 </svg>
               </a>
-              <form class="form-inline">
-                <button class="btn  my-2 my-sm-0 nav_search-btn" type="submit">
-                  <i class="fa fa-search" aria-hidden="true"></i>
-                </button>
-              </form>
-              <a href="" class="order_online">
-                Order Online
-              </a>
+
             </div>
           </div>
         </nav>
