@@ -18,7 +18,8 @@ namespace CafeMaid.DataBase
 
                 //   JObject settingsJSON = (JObject)configFile.readConfig();
 
-                string connString = "Data Source=" + "ASUS" + ";database=CafeMaidDB;Integrated Security=True";
+                string connString = "Data Source=.; database=CafeMaidDB;Integrated Security=True";
+
 
                 //string connString = "Data Source=ASUS;database=HizliSatis;Integrated Security=True";
 

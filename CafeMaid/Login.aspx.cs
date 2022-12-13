@@ -27,7 +27,7 @@ namespace CafeMaid
                 Session.Add("KullaniciAdi", TextBox1.Text);
                 Session.Add("Sifre", TextBox2.Text);
                 
-                Response.Redirect("About.aspx");
+                Response.Redirect("Menu.aspx");
             }
             else
             {

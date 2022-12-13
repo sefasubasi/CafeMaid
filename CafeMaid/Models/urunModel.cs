@@ -13,18 +13,21 @@ namespace CafeMaid.Models
         private int kategoriId;
         private string urunAciklama;
         private float urunFiyat;
+        private string urunImage;
+
 
         public urunModel()
         {
         }
 
-        public urunModel(int id, string urunAdi, int kategoriId, string urunAciklama, float urunFiyat)
+        public urunModel(int id, string urunAdi, int kategoriId, string urunAciklama, float urunFiyat, string urunImage)
         {
             this.id = id;
             this.urunAdi = urunAdi;
             this.kategoriId = kategoriId;
             this.urunAciklama = urunAciklama;
             this.urunFiyat = urunFiyat;
+            this.urunImage = urunImage;
         }
 
         public int Id { get => id; set => id = value; }
@@ -32,5 +35,6 @@ namespace CafeMaid.Models
         public int KategoriId { get => kategoriId; set => kategoriId = value; }
         public string UrunAciklama { get => urunAciklama; set => urunAciklama = value; }
         public float UrunFiyat { get => urunFiyat; set => urunFiyat = value; }
+        public string UrunImage { get => urunImage; set => urunImage = value; }
     }
 }

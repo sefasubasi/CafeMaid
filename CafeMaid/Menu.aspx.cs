@@ -16,13 +16,14 @@ namespace CafeMaid
         {
 
         }
-
-
+      
         [WebMethod]
-        public static List<urunModel> GetUrunList(string str)
+        public static List<urunModel> GetUrunListAll(string str)
         {
-            List<urunModel> testObj = new List<urunModel>();
             querryClass q = new querryClass();
+
+            List<urunModel> testObj = new List<urunModel>();
+            
 
             testObj = q.urunListesi();
 
@@ -31,12 +32,66 @@ namespace CafeMaid
             return testObj;
         }
 
+        [WebMethod]       
+        public static List<urunModel> GetUrunList(int kategoriId)
+        {
+
+            querryClass q = new querryClass();
+
+            List<urunModel> testObj = new List<urunModel>();
+           
+            testObj = q.urunListesi(kategoriId);
+
+
+
+            return testObj;
+        }
+        
+ 
+
+        [WebMethod(EnableSession =true)]
+        public static bool SepeteUrunEkle(int id,int adet)
+        {
+        querryClass q = new querryClass();
+
+            string kAdi=HttpContext.Current.Session["kullaniciAdi"].ToString();
+            int siparisId = q.ActiveSiparisNo(kAdi);
+            
+            if (siparisId==-1)
+            {
+
+                string a = "abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789";
+
+               string siparisNo = "";
+
+
+              
+                Random rnd = new Random();
+
+                for (int i = 0; i < 8; i++) siparisNo += (a[(rnd.Next() % 62)]);
+
+
+            
+
+                siparisId =q.createOrder(kAdi, siparisNo);
+
+            }
+
+
+
+
+
+
+            return q.insertOrderItem(siparisId, id, adet); 
+        }
 
         [WebMethod]
         public static List<kategoriModel> GetKategoriList()
         {
-            List<kategoriModel> testObj = new List<kategoriModel>();
             querryClass q = new querryClass();
+
+            List<kategoriModel> testObj = new List<kategoriModel>();
+           
 
             testObj = q.kategoriListesi();
 
