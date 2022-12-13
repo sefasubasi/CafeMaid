@@ -9,16 +9,42 @@
 
 <html>
 <head>
-<style>
-.btn {
+<style type="text/css" class="cssStyles">
+
+
+.btn1{
   padding: 5px;
   background-color: warning;
   transition: transform .2s; 
   width: 110px;
   height: 40px;
   margin: 0 auto;
+  color:white; 
+  margin-bottom:5px;
+
+
+   display: inline-block;
+  font-weight: 400;
+  text-align: center;
+  vertical-align: middle;
+  -webkit-user-select: none;
+  -moz-user-select: none;
+  -ms-user-select: none;
+  user-select: none;
+
+  border: 1px solid transparent;
+
+  font-size: 1rem;
+  line-height: 1.5;
+  border-radius: 0.25rem;
+
+
+
 }
-.btn:hover {
+
+.btn1:hover {
+      color: white;
+  text-decoration: none;
   transform: scale(1.2);
 }
 #giris {
@@ -28,6 +54,7 @@
   font-size: 16px;
   transition: 0.3s;
   border-radius:25px;
+  margin: 0px 0px 150px 5px;
 }
 #giris:hover {
   background-color: #8D8D8D33;
@@ -53,7 +80,7 @@
             <img src="images/about-img.png" alt="">
           </div>
         </div>
-        <div  id="giris" class="block text main-agileits" style ="margin: 0px 0px 150px 5px;">
+        <div  id="giris" class="block text main-agileits">
           <div class="detail-box">
             <div class="heading_container">
                 <h2 style="margin-bottom:5px; text-align:center;" >
@@ -62,8 +89,8 @@
                 <div class="form-group" style ="height: 150px;">
                      <asp:TextBox style="margin-bottom:5px;" class="form-control" ID="TextBox1" runat="server" placeholder="E-Mail"></asp:TextBox>
                      <asp:TextBox style="margin-bottom:10px;" class="form-control" ID="TextBox2" runat="server" placeholder="Şifre"></asp:TextBox>
-                     <asp:Button style=" color:white; margin-bottom:5px;" class="btn btn-warning" ID="Button1" runat="server" OnClick="Button1_Click" Text="Giriş Yap" />
-                     <asp:Button style=" color:white; margin-bottom:5px;" class="btn btn-warning" ID="Button2" runat="server" OnClick="Button2_Click" Text="Kaydol" />
+                     <asp:Button ID="Button1" class="btn1 btn-warning"  runat="server" OnClick="Button1_Click" Text="Giriş Yap" />
+                     <asp:Button ID="Button2" class="btn1 btn-warning"  runat="server" OnClick="Button2_Click" Text="Kaydol" />
                 </div>
             </div>
           </div>

@@ -57,6 +57,7 @@ body {
 <body class="sub_page">
     <script src="Scripts/menuScript.js"></script>
    <script>UrunListAll()</script>
+   <script>SepeteListesi()</script>
         
 
   <section class="about_section layout_padding">
@@ -69,34 +70,7 @@ body {
       </div>
 
       
-        <div class="row" >
-           
-         <div class="flip-card" style="margin-right:5px; margin-left:5px;">
-          <div class="flip-card-inner">
-            <div class="flip-card-front">
-              <img src="https://www.tarifdefteri.org/wp-content/uploads/2022/06/Ipek-Gibi-Kremasiyla-Enfes-Pratik-Tatli-Tarifi.jpg.webp" alt="Avatar" style="width:300px;height:300px;">
-            </div>
-            <div class="flip-card-back">
-              <h1>John Doe</h1> 
-              <p>Architect & Engineer</p> 
-                <button  class="btn btn-warning">Satın Al</button>
-            </div>
-          </div>
-        </div>
-            
-         <div class="flip-card" style="margin-right:5px; margin-left:5px;">
-          <div class="flip-card-inner">
-            <div class="flip-card-front">
-              <img src="https://www.tarifdefteri.org/wp-content/uploads/2022/06/Ipek-Gibi-Kremasiyla-Enfes-Pratik-Tatli-Tarifi.jpg.webp" alt="Avatar" style="width:300px;height:300px;">
-            </div>
-            <div class="flip-card-back">
-              <h1>John Doe</h1> 
-              <p>Architect & Engineer</p> 
-                <button  class="btn btn-warning">Satın Al</button>
-            </div>
-          </div>
-        </div>
-</div>
+        
 
 
    </section>

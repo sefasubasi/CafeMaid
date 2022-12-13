@@ -98,12 +98,66 @@ function generateItem(data) {
     //return "<p id='str" + id + "' onclick='itemOnclick(" + id + ")'>" + isim + "</p>";
 
 }
+
+
+
+function UrunArama() {
+    $.ajax({
+        type: "POST",
+        contentType: "application/json; charset=utf-8",
+        //headers: {
+        //    "__RequestVerificationToken": getTextValue("tokenInput")
+        //},
+        url: ("Menu.aspx/GetArananUrun"),
+        data: JSON.stringify({ aranan: document.getElementById("aramaText").value }),
+        dataType: "json",
+        success: function (data) {
+
+
+            console.log(data);
+
+            //document.getElementById("footerDiv").innerHTML += generateItem(item.id,item.adi);
+            document.getElementById("Menu-Content").innerHTML = "";
+
+            document.getElementById("Menu-Content").insertAdjacentHTML("afterbegin", generateItem(data))
+
+
+        },
+        error: function (req, status, error) {
+            console.log(error)
+        }
+    });
+
+}
+
+function UpdateSepetAdet(id,data) {
+    $.ajax({
+        type: "POST",
+        contentType: "application/json; charset=utf-8",
+        //headers: {
+        //    "__RequestVerificationToken": getTextValue("tokenInput")
+        //},
+        url: ("Menu.aspx/UpdateSepetAdet"),
+        data: JSON.stringify({urunId:id, adet: data }),
+        dataType: "json",
+        success: function (data) {
+
+
+            console.log(data);
+
+            //document.getElementById("footerDiv").innerHTML += generateItem(item.id,item.adi);
+            alert(data.d);
+
+
+        },
+        error: function (req, status, error) {
+            console.log(error)
+        }
+    });
+
+}
+
 function SepeteEkle(id) {
-
-
-
-   // alert(item.Id);
-    alert("ADET: " + document.getElementById("adet" + id).value);
 
     $.ajax({
         type: "POST",
@@ -116,16 +170,11 @@ function SepeteEkle(id) {
         dataType: "json",
         success: function (data) {
 
-            alert(data);
 
             console.log(data);
-            for (var i in data.d) {
-                var item = data.d[i];
+            if (data.d) {
+                alert("Siparisiniz Alındı.");
 
-
-
-                //document.getElementById("footerDiv").innerHTML += generateItem(item.id,item.adi);
-                //document.getElementById("down_menu_item").insertAdjacentHTML("afterbegin", generateKategoriItem(item.Id, item.Value))
 
             }
 
@@ -139,6 +188,101 @@ function SepeteEkle(id) {
 
 
 }
+
+
+function SepeteListesi() {
+    $.ajax({
+        type: "POST",
+        contentType: "application/json; charset=utf-8",
+        //headers: {
+        //    "__RequestVerificationToken": getTextValue("tokenInput")
+        //},
+        url: ("Menu.aspx/GetSepetListesi"),
+        data: JSON.stringify({ str: "AJAX TEST => " }),
+        dataType: "json",
+        success: function (data) {
+
+            console.log(data);
+            for (var i in data.d) {
+                var item = data.d[i];
+
+
+                //document.getElementById("footerDiv").innerHTML += generateItem(item.id,item.adi);
+                document.getElementById("sepetListMenu").insertAdjacentHTML("afterbegin", generateSepetItem(item))
+
+            }
+
+
+        },
+        error: function (req, status, error) {
+            console.log(error)
+        }
+    });
+
+
+
+}
+
+
+function generateSepetItem(data) {
+    var text = "<li>" +
+        "<span class='item'>" +
+        "<span class='item-left'>" +
+        "<img style='height: 30px; weight: 30px;' src='"+data.UrunImage+"' alt='' />" +
+            "<span class='item-info'>" +
+            "<span>"+data.UrunAdi+"</span>" +
+        "<span>"+data.UrunFiyat+" ₺</span>" +
+        "</span>" +
+        "</span>" +
+        "<span class='item-right'>" +
+
+        "<div class='input-group'>" +
+
+        "<button OnClick='btnDecClick(" + data.Id + ")' type='button' class='quantity-left-minus btn btn-danger btn-number' data-type='minus' data-field=''>-</button>" +
+        "<input type='text' id='quantity" + data.Id + "' name='quantity" + data.Id + "' class='form-control input-number' value='" + data.UrunAdet + "' min='1' max='100' style='width: 40px; text-align: center; font-size: 10px; margin-left: 2px; margin-right: 2px;'>" +
+        "<button OnClick='btnIncClick(" + data.Id + ")' type='button' class='quantity-right-plus btn btn-success btn-number' data-type='plus' data-field=''>+</button>" +
+        "</div>" +
+
+        "</span>" +
+
+
+
+        "</li>";
+    return text;
+
+}
+
+
+function btnIncClick(Id) {
+
+    var quantity = parseInt($("#quantity"+Id).val());
+
+    // If is not undefined
+    quantity = quantity + 1;
+    $('#quantity' + Id).val(quantity);
+
+    UpdateSepetAdet(Id, quantity);
+
+
+}
+function btnDecClick(Id) {
+
+    var quantity = parseInt($("#quantity" + Id).val());
+
+    // If is not undefined
+    quantity = quantity - 1;
+    if (quantity>0) {
+        $('#quantity' + Id).val(quantity);
+
+    }
+
+    UpdateSepetAdet(Id, quantity);
+
+}
+
+
+
+
 
 
 function KategoriList() {
