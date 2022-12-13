@@ -99,6 +99,51 @@ namespace CafeMaid
 
             return testObj;
         }
+        
+       [WebMethod]
+        public static List<urunModel> GetSepetListesi(string str)
+        {
+            string kAdi = HttpContext.Current.Session["kullaniciAdi"].ToString();
+            querryClass q = new querryClass();
+
+            List<urunModel> testObj = new List<urunModel>();
+
+
+            testObj = q.sepetListesi(kAdi);
+
+
+
+            return testObj;
+        }
+
+
+        [WebMethod]
+        public static bool UpdateSepetAdet(int urunId,int adet)
+        {
+            string kAdi = HttpContext.Current.Session["kullaniciAdi"].ToString();
+            querryClass q = new querryClass();
+
+
+
+            return q.updateUrunAdet(urunId, adet);
+            
+        }
+
+
+        [WebMethod]
+        public static List<urunModel> GetArananUrun(string aranan)
+        {            
+            querryClass q = new querryClass();
+
+            List<urunModel> testObj = new List<urunModel>();
+
+
+            testObj = q.arananUrunListesi(aranan);
+
+
+
+            return testObj;
+        }
 
 
     }

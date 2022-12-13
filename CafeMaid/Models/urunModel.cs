@@ -14,6 +14,7 @@ namespace CafeMaid.Models
         private string urunAciklama;
         private float urunFiyat;
         private string urunImage;
+        private int urunAdet;
 
 
         public urunModel()
@@ -36,5 +37,6 @@ namespace CafeMaid.Models
         public string UrunAciklama { get => urunAciklama; set => urunAciklama = value; }
         public float UrunFiyat { get => urunFiyat; set => urunFiyat = value; }
         public string UrunImage { get => urunImage; set => urunImage = value; }
+        public int UrunAdet { get => urunAdet; set => urunAdet = value; }
     }
 }

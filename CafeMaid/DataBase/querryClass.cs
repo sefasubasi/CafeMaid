@@ -298,6 +298,148 @@ namespace CafeMaid.DataBase
             return urunList;
         }
 
+        public List<urunModel> sepetListesi(string Kadi)
+        // public List<urunModel> stokListesi(int type, string search)
+        {
+            List<urunModel> urunList = new List<urunModel>();
+            SqlCommand cmd = new SqlCommand();
+            SqlDataReader reader;
+
+            //cmd.CommandText = "select Distinct STU.id as siId, U.*,STU.urunAdet from UrunTable U,SiparisToUrunTable STU " +
+            //"where U.id=STU.urunId and U.id in( " +
+            //"select urunId from SiparisToUrunTable where siparisId in  " +
+            //"(select ST.id from SiparisTable ST,KullaniciTable K " +
+            //"where St.userId=K.id and St.siparisState=0 and K.kullaniciAdi=@kAdi )) ";
+
+
+            cmd.CommandText = "select Distinct STU.id as siId, U.*,STU.urunAdet  " +
+            "from UrunTable U, " +
+            "SiparisToUrunTable STU, " +
+            "SiparisTable ST, " +
+            "KullaniciTable K " +
+            "where " +
+            "U.id=STU.urunId and St.userId=K.id and St.siparisState=0 and K.kullaniciAdi=@kAdi " +
+            "and siparisId=ST.id ";
+
+            cmd.Parameters.AddWithValue("@kAdi", Kadi);
+
+
+            cmd.CommandType = CommandType.Text;
+            cmd.Connection = dataCon.con;
+
+
+            if (dataCon.con.State == ConnectionState.Closed)
+            {
+
+                dataCon.con.Open();
+
+            }
+
+            reader = cmd.ExecuteReader();
+
+            while (reader.Read())
+            {
+
+                urunModel urun = new urunModel();
+                urun.Id = Convert.ToInt32((String.Format("{0}", reader["siId"])));
+                urun.UrunAdi = (String.Format("{0}", reader["urunAdi"]));
+                urun.KategoriId = Convert.ToInt32((String.Format("{0}", reader["urunKategoriId"])));
+                urun.UrunAciklama = (String.Format("{0}", reader["urunAciklama"]));
+                urun.UrunFiyat = (float)Convert.ToDouble((String.Format("{0}", reader["urunFiyat"])));
+                urun.UrunImage = (String.Format("{0}", reader["urunImage"]));
+                urun.UrunAdet = (int)Convert.ToInt32((String.Format("{0}", reader["urunAdet"])));
+
+
+
+
+                urunList.Add(urun);
+                //settingsCihazMarkaCombo.Items.Add(sonuc1);
+
+            }
+            //textBox1.Text = sonuc + "  " + sonuc1;
+            dataCon.con.Close();
+            return urunList;
+        }
+
+
+        public Boolean updateUrunAdet(int urunId, int urunAdet)
+        {
+            try
+            {
+
+                //   MessageBox.Show(faturaToStokModel.FaturaId + " " + faturaToStokModel.StokId + " " + faturaToStokModel.Adet);
+                SqlCommand cmd = new SqlCommand();
+
+                if (dataCon.con.State == ConnectionState.Closed)
+                {
+                    dataCon.con.Open();
+                }
+                cmd.Connection = dataCon.con;
+                cmd.CommandText = "update SiparisToUrunTable set urunAdet=@urunAdet where id=@urunId";
+
+                cmd.Parameters.AddWithValue("@urunId", urunId);
+                cmd.Parameters.AddWithValue("@urunAdet", urunAdet);
+
+
+                cmd.ExecuteNonQuery();
+                dataCon.con.Close();
+                return true;
+            }
+            catch (Exception e)
+            {
+                Console.WriteLine(e.ToString());
+                return false;
+            }
+
+        }
+
+        public List<urunModel> arananUrunListesi(string aranan)
+        // public List<urunModel> stokListesi(int type, string search)
+        {
+            List<urunModel> urunList = new List<urunModel>();
+            SqlCommand cmd = new SqlCommand();
+            SqlDataReader reader;
+
+            cmd.CommandText = "select * from UrunTable where urunAciklama Like '%"+aranan+"%' or urunAdi Like '%"+aranan+"%'";
+           
+
+
+            cmd.CommandType = CommandType.Text;
+            cmd.Connection = dataCon.con;
+
+
+            if (dataCon.con.State == ConnectionState.Closed)
+            {
+
+                dataCon.con.Open();
+
+            }
+
+            reader = cmd.ExecuteReader();
+
+            while (reader.Read())
+            {
+
+                urunModel urun = new urunModel();
+                urun.Id = Convert.ToInt32((String.Format("{0}", reader["id"])));
+                urun.UrunAdi = (String.Format("{0}", reader["urunAdi"]));
+                urun.KategoriId = Convert.ToInt32((String.Format("{0}", reader["urunKategoriId"])));
+                urun.UrunAciklama = (String.Format("{0}", reader["urunAciklama"]));
+                urun.UrunFiyat = (float)Convert.ToDouble((String.Format("{0}", reader["urunFiyat"])));
+                urun.UrunImage = (String.Format("{0}", reader["urunImage"]));
+
+
+
+
+                urunList.Add(urun);
+                //settingsCihazMarkaCombo.Items.Add(sonuc1);
+
+            }
+            //textBox1.Text = sonuc + "  " + sonuc1;
+            dataCon.con.Close();
+            return urunList;
+        }
+
 
         public List<kategoriModel> kategoriListesi()
         // public List<urunModel> stokListesi(int type, string search)
