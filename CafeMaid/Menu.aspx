@@ -69,7 +69,7 @@ body {
       </div>
 
       
-<%--        <div class="row" >
+        <div class="row" >
            
          <div class="flip-card" style="margin-right:5px; margin-left:5px;">
           <div class="flip-card-inner">
@@ -96,7 +96,7 @@ body {
             </div>
           </div>
         </div>
-</div>--%>
+</div>
 
 
    </section>

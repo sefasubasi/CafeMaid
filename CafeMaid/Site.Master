@@ -36,17 +36,126 @@
   <link href="Content/style.css" rel="stylesheet" />
   <!-- responsive style -->
   <link href="Content/responsive.css" rel="stylesheet" />
-      <style>
-          .dropdown:hover > .dropdown-menu {
+<style>
+    .search-form{
+        display:inline-block;
+        border-radius:20px;
+        background:#fff;
+        line-height:40px;
+        font-size:18px;
+        box-shadow:0px 0px 3px #111;
+        overflow:hidden;
+        position:relative;
+        width:auto;
+        margin-right:5px;
+    }
+
+    .search-form span{
+        width:40px;
+        height:40px;
+        display:inline-block;
+        text-align:center;
+    }
+    span.slens{
+        position:absolute;
+        z-index:1;
+    }
+    input#s{
+        width:0px;
+        margin:0px 0px;
+        padding:0px 0px 0px 35px;
+        border:none;
+        vertical-align:top;
+        position:relative;
+        z-index:2;
+        background:transparent;
+        -webkit-transition: width 1s; /* Safari */
+        transition: width 1s; 
+    }
+
+    input#s:focus{
+        outline:none;
+        width:180px;
+    }
+
+
+    .slens i{
+        color:#aaa;
+    }
+
+    input#s + .sclose{
+        width:0px;
+    }
+
+    input#s:focus + .sclose{
+        width:40px;
+        cursor:pointer;
+    }
+
+    .sclose i{
+        color:red;
+    }
+
+
+    .dropdown:hover > .dropdown-menu {
+        display: block;
+    }
+
+    .dropdown > .dropdown-toggle:active {
+        /*Without this, clicking will make it sticky*/
+        pointer-events: none;
+    }
+
+
+ul.dropdown-cart{
+    min-width:250px;
+    margin-right:10px;
+}
+ul.dropdown-cart li .item {
+    display:block;
+    padding:3px 10px;
+    margin: 3px 0;
+
+
+}
+ul.dropdown-cart li .item:hover{
+    background-color:#f3f3f3;
+}
+ul.dropdown-cart li .item:after{
+    visibility: hidden;
     display: block;
+    font-size: 0;
+    content: " ";
+    clear: both;
+    height: 0;
 }
 
-.dropdown > .dropdown-toggle:active {
-    /*Without this, clicking will make it sticky*/
-    pointer-events: none;
+ul.dropdown-cart li .item-left{
+    float:left;
+}
+ul.dropdown-cart li .item-left img,
+ul.dropdown-cart li .item-left span.item-info{
+    float:left;
+     
+}
+ul.dropdown-cart li .item-left span.item-info{
+    margin-left:10px;   
+}
+ul.dropdown-cart li .item-left span.item-info span{
+    display:block;
+}
+ul.dropdown-cart li .item-right{
+    float:right;
+}
+ul.dropdown-cart li .item-right button{
+    margin-top:10px;
+    margin-right:10px;
 }
 
-      </style>
+
+    
+
+ </style>
 </head>
 
 <body>
@@ -94,11 +203,11 @@
                 <a class="nav-link" href="book.html">Book Table</a>
               </li>
             </ul>
-            <div class="user_option">
-              <a href="Login.aspx" class="user_link">
-                <i class="fa fa-user" aria-hidden="true"></i>
-              </a>
-              <a class="cart_link" href="#">
+
+       <div class="user_option" style="margin-right:100px;">
+
+         <div class="dropdown" style=" margin-right:5px;">
+            <a class="cart_link" href="#">
                 <svg version="1.1" id="Capa_1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px" viewBox="0 0 456.029 456.029" style="enable-background:new 0 0 456.029 456.029;" xml:space="preserve">
                   <g>
                     <g>
@@ -152,14 +261,41 @@
                   </g>
                 </svg>
               </a>
-              <form class="form-inline">
-                <button class="btn  my-2 my-sm-0 nav_search-btn" type="submit">
-                  <i class="fa fa-search" aria-hidden="true"></i>
-                </button>
-              </form>
-              <a href="" class="order_online">
-                Order Online
+          <ul class="dropdown-menu dropdown-cart" role="menu">
+             
+              <li>
+                  <span class="item">
+                    <span class="item-left">
+                        <img src="http://lorempixel.com/50/50/" alt="" />
+                        <span class="item-info">
+                            <span>Item name</span>
+                            <span>23$</span>
+                        </span>
+                    </span>
+                    <span class="item-right">
+                        <button class="btn btn-xs btn-danger pull-right">x</button>
+                    </span>
+                </span>
+              </li>
+              <li class="divider"></li>
+              <li><a class="text-center" href="">View Cart</a></li>
+          </ul>
+    </div>
+
+
+               <div class="search-form">
+                  <span class="slens"> <i class="fa fa-search"></i> </span>
+                  <input id="s" type="text" />
+                  <span class="sclose"><i class="fa fa-times"></i></span>  
+                </div>
+
+              <a href="Login.aspx" class="user_link">
+                <i class="fa fa-user" aria-hidden="true"></i>
               </a>
+
+
+
+
             </div>
           </div>
         </nav>
