@@ -183,7 +183,21 @@ namespace CafeMaid.DataBase
                     dataCon.con.Open();
                 }
                 cmd.Connection = dataCon.con;
-                cmd.CommandText = "insert into SiparisToUrunTable(siparisId,urunId,urunAdet) values (@siparisId,@urunId,@urunAdet)";
+                // cmd.CommandText = "insert into SiparisToUrunTable(siparisId,urunId,urunAdet) values (@siparisId,@urunId,@urunAdet)";
+                cmd.CommandText = "declare @sTUId as int; " +
+"set @sTUId=-1; " +
+"set @sTUId=(select id from SiparisToUrunTable where siparisId=@siparisId and urunId=@urunId) " +
+"if (@sTUId is null) " +
+"begin " +
+"insert into SiparisToUrunTable(siparisId,urunId,urunAdet) values (@siparisId,@urunId,@urunAdet) " +
+"end; " +
+"else if(@sTUId!=-1) " +
+"begin " +
+"update SiparisToUrunTable set urunAdet+=@urunAdet where id=@sTUId; " +
+"end; ";
+
+
+
                 cmd.Parameters.AddWithValue("@siparisId", siparisNo);
                 cmd.Parameters.AddWithValue("@urunId", urunId);
                 cmd.Parameters.AddWithValue("@urunAdet", urunAdet);
@@ -375,7 +389,16 @@ namespace CafeMaid.DataBase
                     dataCon.con.Open();
                 }
                 cmd.Connection = dataCon.con;
-                cmd.CommandText = "update SiparisToUrunTable set urunAdet=@urunAdet where id=@urunId";
+                if (urunAdet>0)
+                {
+                    cmd.CommandText = "update SiparisToUrunTable set urunAdet=@urunAdet where id=@urunId";
+
+                }
+                else
+                {
+                    cmd.CommandText = "delete from SiparisToUrunTable where  id=@urunId";
+
+                }
 
                 cmd.Parameters.AddWithValue("@urunId", urunId);
                 cmd.Parameters.AddWithValue("@urunAdet", urunAdet);
