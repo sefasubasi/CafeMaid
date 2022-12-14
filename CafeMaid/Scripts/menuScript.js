@@ -145,8 +145,7 @@ function UpdateSepetAdet(id,data) {
 
             console.log(data);
 
-            //document.getElementById("footerDiv").innerHTML += generateItem(item.id,item.adi);
-            alert(data.d);
+            SepeteListesi();
 
 
         },
@@ -173,10 +172,12 @@ function SepeteEkle(id) {
 
             console.log(data);
             if (data.d) {
-                alert("Siparisiniz Alındı.");
-
+                SepeteListesi();
+               // alert("Siparisiniz Alındı.");
+               
 
             }
+           
 
 
         },
@@ -203,9 +204,17 @@ function SepeteListesi() {
         success: function (data) {
 
             console.log(data);
+            document.getElementById("sepetListMenu").innerHTML = "<li class='divider'></li>" +
+                "<li><a class='text-center' href=''>Ödeme Yap</a></li>";
+
+
+
+
+
             for (var i in data.d) {
                 var item = data.d[i];
 
+             
 
                 //document.getElementById("footerDiv").innerHTML += generateItem(item.id,item.adi);
                 document.getElementById("sepetListMenu").insertAdjacentHTML("afterbegin", generateSepetItem(item))

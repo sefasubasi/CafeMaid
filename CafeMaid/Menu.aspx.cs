@@ -54,35 +54,47 @@ namespace CafeMaid
         {
         querryClass q = new querryClass();
 
-            string kAdi=HttpContext.Current.Session["kullaniciAdi"].ToString();
-            int siparisId = q.ActiveSiparisNo(kAdi);
-            
-            if (siparisId==-1)
+            string kAdi = "";
+            if (HttpContext.Current.Session["kullaniciAdi"] != null)
+            {
+                kAdi = HttpContext.Current.Session["kullaniciAdi"].ToString();
+                int siparisId = q.ActiveSiparisNo(kAdi);
+
+                if (siparisId == -1)
+                {
+
+                    string a = "abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789";
+
+                    string siparisNo = "";
+
+
+
+                    Random rnd = new Random();
+
+                    for (int i = 0; i < 8; i++) siparisNo += (a[(rnd.Next() % 62)]);
+
+
+
+
+                    siparisId = q.createOrder(kAdi, siparisNo);
+
+                }
+
+
+
+
+
+
+                return q.insertOrderItem(siparisId, id, adet);
+            }
+            else
             {
 
-                string a = "abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789";
-
-               string siparisNo = "";
-
-
-              
-                Random rnd = new Random();
-
-                for (int i = 0; i < 8; i++) siparisNo += (a[(rnd.Next() % 62)]);
-
-
-            
-
-                siparisId =q.createOrder(kAdi, siparisNo);
+                HttpContext.Current.Response.Redirect("~/Login.aspx",false);
+                
 
             }
-
-
-
-
-
-
-            return q.insertOrderItem(siparisId, id, adet); 
+            return false;
         }
 
         [WebMethod]
@@ -103,7 +115,12 @@ namespace CafeMaid
        [WebMethod]
         public static List<urunModel> GetSepetListesi(string str)
         {
-            string kAdi = HttpContext.Current.Session["kullaniciAdi"].ToString();
+            string kAdi = "";
+            if (HttpContext.Current.Session["kullaniciAdi"]!=null)
+            {
+                 kAdi = HttpContext.Current.Session["kullaniciAdi"].ToString();
+
+            }
             querryClass q = new querryClass();
 
             List<urunModel> testObj = new List<urunModel>();
@@ -120,7 +137,12 @@ namespace CafeMaid
         [WebMethod]
         public static bool UpdateSepetAdet(int urunId,int adet)
         {
-            string kAdi = HttpContext.Current.Session["kullaniciAdi"].ToString();
+            string kAdi = "";
+            if (HttpContext.Current.Session["kullaniciAdi"] != null)
+            {
+                kAdi = HttpContext.Current.Session["kullaniciAdi"].ToString();
+
+            }
             querryClass q = new querryClass();
 
 
