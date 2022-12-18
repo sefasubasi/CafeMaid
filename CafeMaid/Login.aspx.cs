@@ -11,7 +11,7 @@ namespace CafeMaid
 {
     public partial class Login : System.Web.UI.Page
     {
-
+         
         querryClass querry = new querryClass();
         protected void Page_Load(object sender, EventArgs e)
         {
@@ -37,6 +37,21 @@ namespace CafeMaid
         }
         protected void Button2_Click(object sender, EventArgs e)
         {
+            if (TextBox4.Text == TextBox5.Text)
+            {
+                userModel user = new userModel(0, TextBox3.Text, TextBox4.Text);
+                if (querry.insertUser(user))
+                {
+                   
+                    Response.Redirect("Login.aspx");
+                }
+                else
+                {
+                    Button2.BackColor = System.Drawing.Color.Red;
+                   
+
+                }
+            }
         }
         }
 }

@@ -146,6 +146,7 @@ function UpdateSepetAdet(id,data) {
             console.log(data);
 
             SepeteListesi();
+            SepetOdemeListesi();
 
 
         },
@@ -174,7 +175,7 @@ function SepeteEkle(id) {
             if (data.d) {
                 SepeteListesi();
                // alert("Siparisiniz Alındı.");
-               
+
 
             }
            
@@ -204,17 +205,17 @@ function SepeteListesi() {
         success: function (data) {
 
             console.log(data);
-            document.getElementById("sepetListMenu").innerHTML = "<li class='divider'></li>" +
-                "<li><a class='text-center' href=''>Ödeme Yap</a></li>";
+          
 
+            document.getElementById("sepetListMenu").innerHTML = "<li class='divider'></li>" +
+                "<li><a class='text-center' href='Odeme.aspx'>Ödeme Yap</a></li>";
 
 
 
 
             for (var i in data.d) {
                 var item = data.d[i];
-
-             
+                
 
                 //document.getElementById("footerDiv").innerHTML += generateItem(item.id,item.adi);
                 document.getElementById("sepetListMenu").insertAdjacentHTML("afterbegin", generateSepetItem(item))
@@ -232,7 +233,72 @@ function SepeteListesi() {
 
 }
 
+function SepetOdemeListesi() {
 
+    $.ajax({
+        type: "POST",
+        contentType: "application/json; charset=utf-8",
+        //headers: {
+        //    "__RequestVerificationToken": getTextValue("tokenInput")
+        //},
+        url: ("Menu.aspx/GetSepetListesi"),
+        data: JSON.stringify({ str: "AJAX TEST => " }),
+        dataType: "json",
+        success: function (data) {
+
+            console.log(data);
+            $('#TotalTutar').val(0);
+            $('#TotalTutar1').val(0);
+            document.getElementById("OdemeSepetListe").innerHTML = "<div class='d-flex flex-row align-items-center'><i class='fa fa-long-arrow-left'></i><a href='Menu.aspx'>Geri</a></div>" +
+                "<hr>";
+
+       
+
+            for (var i in data.d) {
+                var item = data.d[i];
+            
+
+                //document.getElementById("footerDiv").innerHTML += generateItem(item.id,item.adi);
+                document.getElementById("OdemeSepetListe").insertAdjacentHTML("beforeend", generateOdemeSepetItem(item))
+
+            }
+
+
+        },
+        error: function (req, status, error) {
+            console.log(error)
+        }
+    });
+
+
+
+}
+function generateOdemeSepetItem(data) {
+    var tt = parseInt($("#TotalTutar").val());
+    $('#TotalTutar').val(tt + (data.UrunFiyat * data.UrunAdet));
+    $('#TotalTutar1').val(tt + (data.UrunFiyat * data.UrunAdet));
+
+    var text =
+        "<div class='d-flex justify-content-between align-items-center mt-3 p-2 items rounded'>" +
+        "<div class='d-flex flex-row'><img class='rounded' src='" + data.UrunImage + "' width='40'>" +
+        "<div class='ml-2'><span class='font-weight-bold d-block'>" + data.UrunAdi + "</span><span class='spec'>" + data.UrunAciklama + "</span></div>" +
+        "</div>" +
+        "<div class='d-flex flex-row align-items-center'><span class='d-block'>" + data.UrunAdet + "</span><span class='d-block ml-5 font-weight-bold'>₺" + data.UrunFiyat * data.UrunAdet + "</span></div>" +
+        "<span class='item-right'>" +
+
+        "<div class='input-group'>" +
+
+        "<button OnClick='btnDecClick(" + data.Id + ")' type='button' class='quantity-left-minus btn btn-danger btn-number' data-type='minus' data-field=''>-</button>" +
+        "<input type='text' id='quantity" + data.Id + "' name='quantity" + data.Id + "' class='form-control input-number' value='" + data.UrunAdet + "' min='1' max='100' style='width: 40px; text-align: center; font-size: 10px; margin-left: 2px; margin-right: 2px;'>" +
+        "<button OnClick='btnIncClick(" + data.Id + ")' type='button' class='quantity-right-plus btn btn-success btn-number' data-type='plus' data-field=''>+</button>" +
+        "</div>" +
+
+        "</span>" +
+        "</div>";
+    
+    return text;
+
+}
 function generateSepetItem(data) {
     var text = "<li>" +
         "<span class='item'>" +
@@ -291,6 +357,43 @@ function btnDecClick(Id) {
 
 
 
+function OdemeYap() {
+
+    $.ajax({
+        type: "POST",
+        contentType: "application/json; charset=utf-8",
+        //headers: {
+        //    "__RequestVerificationToken": getTextValue("tokenInput")
+        //},
+        url: ("Odeme.aspx/OdemeYap"),
+        data: JSON.stringify({ str: "AJAX TEST => " }),
+        dataType: "json",
+        success: function (data) {
+
+            console.log(data);
+            $('#TotalTutar').val(0);
+            $('#TotalTutar1').val(0);
+            document.getElementById("OdemeSepetListe").innerHTML = "<div class='d-flex flex-row align-items-center'><i class='fa fa-long-arrow-left'></i><a href='Menu.aspx'>Geri</a></div>" +
+                "<hr>";
+
+
+
+            if (data.d) {                
+                window.location = "Menu.aspx";
+            }
+
+             
+
+
+        },
+        error: function (req, status, error) {
+            console.log(error)
+        }
+    });
+
+
+
+}
 
 
 

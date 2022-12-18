@@ -18,7 +18,7 @@
 
     <title>CafeMaid </title>
 
-
+     
 
     <script src="Scripts/jquery-3.4.1.min.js"></script>
     <script src="Scripts/menuScript.js"></script>
@@ -36,6 +36,7 @@
     <link href="Content/style.css" rel="stylesheet" />
     <!-- responsive style -->
     <link href="Content/responsive.css" rel="stylesheet" />
+
     <style>
         .search-form {
             display: inline-block;
@@ -168,7 +169,8 @@
 <body>
 
     <script>KategoriList()</script>
-
+     <script>SepeteListesi()</script>
+    <%--<script>SepetOdemeListesi()</script>--%>
 
 
     <div class="hero_area">
@@ -180,7 +182,7 @@
         <header class="header_section">
             <div class="container">
                 <nav class="navbar navbar-expand-lg custom_nav-container ">
-                    <a class="navbar-brand" href="index.html">
+                    <a class="navbar-brand" href="Menu.aspx">
                         <span>CafeMaid
                         </span>
                     </a>
