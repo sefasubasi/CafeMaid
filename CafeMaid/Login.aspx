@@ -51,7 +51,7 @@
 
 <style type="text/css" class="cssStyles">
 
-
+     
 .btn1{
   padding: 5px;
   background-color: warning;
@@ -161,8 +161,10 @@
                      <asp:TextBox style="margin-bottom:5px;" class="form-control" ID="TextBox3" runat="server" placeholder="Kullanıcı Adı"></asp:TextBox>
                      <asp:TextBox style="margin-bottom:5px;" class="form-control" ID="TextBox4" runat="server" placeholder="Şifre"></asp:TextBox>
                      <asp:TextBox style="margin-bottom:10px;" class="form-control" ID="TextBox5" runat="server" placeholder="Şifre Tekrarı"></asp:TextBox>
-                     <asp:Button  ID="Button2" class="btn1 btn-warning"  runat="server" OnClick="Button2_Click" Text="Kaydol" />
-                    </div>
+
+                     <asp:Button ID="Button2" class="btn1 btn-warning"  runat="server" OnClick="Button2_Click" Text="Kaydol" />
+                    </div> 
+
                 </div>
             </div>
 

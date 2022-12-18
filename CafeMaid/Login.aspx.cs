@@ -14,7 +14,7 @@ namespace CafeMaid
 {
     public partial class Login : System.Web.UI.Page
     {
-
+         
         querryClass querry = new querryClass();
         protected void Page_Load(object sender, EventArgs e)
         {
@@ -43,6 +43,7 @@ namespace CafeMaid
         }
         protected void Button2_Click(object sender, EventArgs e)
         {
+
             userModel user = new userModel(0, TextBox3.Text, TextBox5.Text);
             if (querry.insertUser(user) && TextBox4.Text==TextBox5.Text)
             {
@@ -55,6 +56,7 @@ namespace CafeMaid
             else
             {
                 ScriptManager.RegisterStartupScript(this, GetType(), "Popup", "falseRegisterAlert();", true);
+
             }
         }
     }

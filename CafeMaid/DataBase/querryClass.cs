@@ -26,26 +26,57 @@ namespace CafeMaid.DataBase
 
                 //   MessageBox.Show(faturaToStokModel.FaturaId + " " + faturaToStokModel.StokId + " " + faturaToStokModel.Adet);
                 SqlCommand cmd = new SqlCommand();
-
+                SqlDataReader reader;
                 if (dataCon.con.State == ConnectionState.Closed)
                 {
                     dataCon.con.Open();
                 }
                 cmd.Connection = dataCon.con;
-                cmd.CommandText = "insert into KullaniciTable(kullaniciAdi,Sifre) values (@kullaniciAdi,@sifre)";
+                cmd.CommandText ="declare @userId as int; " +
+"set @userId=(select id from KullaniciTable where kullaniciAdi=@kullaniciAdi) " +
+"if (@userId is null) " +
+"begin " +
+"insert into KullaniciTable(kullaniciAdi,Sifre) OUTPUT inserted.id  values  (@kullaniciAdi,@sifre) " +
+"end; " +
+"else if(@userId!=0) " +
+"begin " +
+"declare @s Table( id  int)   " +
+"select* from @s " +
+"end; ";
+
+
                 cmd.Parameters.AddWithValue("@kullaniciAdi", userModel.KullaniciAdi);
                 cmd.Parameters.AddWithValue("@sifre", userModel.Sifre);//
 
+                reader = cmd.ExecuteReader();
 
-                cmd.ExecuteNonQuery();
+                while (reader.Read())
+                {
+                    dataCon.con.Close();
+                    return true;
+                }
+
                 dataCon.con.Close();
-                return true;
+                return false;
+
+
             }
             catch (Exception e)
             {
                 Console.WriteLine(e.ToString());
                 return false;
             }
+//            cmd.CommandText = "declare @userId as int; " +
+//"set @userId=(select id from KullaniciTable where kullaniciAdi=@kullaniciAdi) " +
+//"if (@userId is null) " +
+//"begin " +
+//"insert into KullaniciTable(kullaniciAdi,Sifre) OUTPUT inserted.id  values  (@kullaniciAdi,@sifre) " +
+//"end; " +
+//"else if(@userId!=0) " +
+//"begin " +
+//"declare @s Table( id  int)   " +
+//"select* from @s " +
+//"end; ";
 
         }
         public Boolean LoginUser(userModel userModel)
@@ -415,6 +446,40 @@ namespace CafeMaid.DataBase
             }
 
         }
+        public Boolean odemeYap(string kAdi)
+        {
+            try
+            {
+
+                //   MessageBox.Show(faturaToStokModel.FaturaId + " " + faturaToStokModel.StokId + " " + faturaToStokModel.Adet);
+                SqlCommand cmd = new SqlCommand();
+
+                if (dataCon.con.State == ConnectionState.Closed)
+                {
+                    dataCon.con.Open();
+                }
+                cmd.Connection = dataCon.con;
+             
+
+                    cmd.CommandText = "update SiparisTable set siparisState=1 where id=" +
+                    "(select id from SiparisTable where siparisState=0 and userId = (select id from KullaniciTable where kullaniciAdi = @kAdi))";
+
+
+
+                cmd.Parameters.AddWithValue("@kAdi", kAdi);
+
+
+                cmd.ExecuteNonQuery();
+                dataCon.con.Close();
+                return true;
+            }
+            catch (Exception e)
+            {
+                Console.WriteLine(e.ToString());
+                return false;
+            }
+
+        } 
 
         public List<urunModel> arananUrunListesi(string aranan)
         // public List<urunModel> stokListesi(int type, string search)
