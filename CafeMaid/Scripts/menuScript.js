@@ -174,6 +174,7 @@ function SepeteEkle(id) {
             console.log(data);
             if (data.d) {
                 SepeteListesi();
+
                // alert("Siparisiniz Alındı.");
 
 
@@ -205,7 +206,7 @@ function SepeteListesi() {
         success: function (data) {
 
             console.log(data);
-          
+
 
             document.getElementById("sepetListMenu").innerHTML = "<li class='divider'></li>" +
                 "<li><a class='text-center' href='Odeme.aspx'>Ödeme Yap</a></li>";

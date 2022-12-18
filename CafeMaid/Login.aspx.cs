@@ -6,6 +6,9 @@ using System.Linq;
 using System.Web;
 using System.Web.UI;
 using System.Web.UI.WebControls;
+using System.Data;
+using System.Data.SqlClient;
+using System.Web.Services.Description;
 
 namespace CafeMaid
 {
@@ -20,38 +23,41 @@ namespace CafeMaid
 
         protected void Button1_Click(object sender, EventArgs e)
         {
+
+
             userModel user = new userModel(0, TextBox1.Text, TextBox2.Text);
             if (querry.LoginUser(user))
             {
-                Session.Timeout = 10;
+                Session.Timeout = 10;                
                 Session.Add("KullaniciAdi", TextBox1.Text);
                 Session.Add("Sifre", TextBox2.Text);
-                
-                Response.Redirect("Menu.aspx");
+                Response.Redirect("Menu.aspx",true);
+                ScriptManager.RegisterStartupScript(this, GetType(), "Popup", "successAlert();", true);
+
             }
             else
             {
-                Button1.BackColor = System.Drawing.Color.Red;
-
+                ScriptManager.RegisterStartupScript(this, GetType(), "Popup", "falseAlert();", true);
             }
+               
         }
         protected void Button2_Click(object sender, EventArgs e)
         {
-            if (TextBox4.Text == TextBox5.Text)
-            {
-                userModel user = new userModel(0, TextBox3.Text, TextBox4.Text);
-                if (querry.insertUser(user))
-                {
-                   
-                    Response.Redirect("Login.aspx");
-                }
-                else
-                {
-                    Button2.BackColor = System.Drawing.Color.Red;
-                   
 
-                }
+            userModel user = new userModel(0, TextBox3.Text, TextBox5.Text);
+            if (querry.insertUser(user) && TextBox4.Text==TextBox5.Text)
+            {
+                Session.Timeout = 10;
+                Session.Add("KullaniciAdi", TextBox3.Text);
+                Session.Add("Sifre", TextBox5.Text);
+                ScriptManager.RegisterStartupScript(this, GetType(), "Popup", "trueRegisterAlert();", true);
+
+            }
+            else
+            {
+                ScriptManager.RegisterStartupScript(this, GetType(), "Popup", "falseRegisterAlert();", true);
+
             }
         }
-        }
+    }
 }
