@@ -90,8 +90,7 @@ namespace CafeMaid
             else
             {
 
-                HttpContext.Current.Response.Redirect("~/Login.aspx",false);
-                
+                HttpContext.Current.Response.Redirect("Login");
 
             }
             return false;
@@ -128,7 +127,7 @@ namespace CafeMaid
 
             testObj = q.sepetListesi(kAdi);
 
-
+ 
 
             return testObj;
         }
