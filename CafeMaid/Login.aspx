@@ -9,6 +9,46 @@
 
 <html>
 <head>
+    <script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
+
+
+  <script type="text/javascript">
+      function falseAlert() {
+          swal({
+       title: "HATA",
+              text: "YANLIŞ GİRİŞ YAPTINIZ!",
+              icon: "error",
+              button: "Kapat!",
+          });
+      }
+
+      function successAlert() {
+          swal({
+              title: "GİRİŞ",
+              text: "HOŞ GELDİNİZ",
+              icon: "success",
+              button: "Kapat!",
+          });
+      }
+
+      function falseRegisterAlert() {
+          swal({
+              title: "HATA",
+              text: "KULLANICI BİLGİLERİ HATALIDIR TEKRAR DENEYİNİZ!",
+              icon: "warning",
+              button: "Kapat!",
+          });
+      }
+      function trueRegisterAlert() {
+          swal({
+              title: "KAYIT",
+              text: "KULLANICI OLUŞTURULDU",
+              icon: "success",
+              button: "Kapat!",
+          });
+      }
+  </script>
+
 <style type="text/css" class="cssStyles">
 
 
@@ -121,7 +161,7 @@
                      <asp:TextBox style="margin-bottom:5px;" class="form-control" ID="TextBox3" runat="server" placeholder="Kullanıcı Adı"></asp:TextBox>
                      <asp:TextBox style="margin-bottom:5px;" class="form-control" ID="TextBox4" runat="server" placeholder="Şifre"></asp:TextBox>
                      <asp:TextBox style="margin-bottom:10px;" class="form-control" ID="TextBox5" runat="server" placeholder="Şifre Tekrarı"></asp:TextBox>
-                     <asp:Button ID="Button4" class="btn1 btn-warning"  runat="server" OnClick="Button2_Click" Text="Kaydol" />
+                     <asp:Button  ID="Button2" class="btn1 btn-warning"  runat="server" OnClick="Button2_Click" Text="Kaydol" />
                     </div>
                 </div>
             </div>
