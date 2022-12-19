@@ -284,8 +284,12 @@
                                 <span class="sclose"><i class="fa fa-times"></i></span>
                             </div>
 
-                            <a href="Login.aspx" class="user_link">
+                            <a href="Profil.aspx" class="user_link">
                                 <i class="fa fa-user" aria-hidden="true"></i>
+                                 <div class="dropdown" style="margin-right: 5px;">
+                                <a class="cart_link" href="#">
+                                    </a>
+                                     </div>
                             </a>
 
 
