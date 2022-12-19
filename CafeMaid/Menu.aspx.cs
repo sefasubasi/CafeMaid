@@ -89,8 +89,8 @@ namespace CafeMaid
             }
             else
             {
-
-                HttpContext.Current.Response.Redirect("Login");
+                
+                //HttpContext.Current.Response.Redirect("~/Login.aspx");
 
             }
             return false;
