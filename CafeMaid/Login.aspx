@@ -154,6 +154,10 @@
                      <asp:TextBox style="margin-bottom:5px;" class="form-control" ID="TextBox1" runat="server" placeholder="Kullanıcı Adı"></asp:TextBox>
                      <asp:TextBox style="margin-bottom:10px;" class="form-control" ID="TextBox2" runat="server" placeholder="Şifre"></asp:TextBox>
                      <asp:Button ID="Button1" class="btn1 btn-warning"  runat="server" OnClick="Button1_Click" Text="Giriş Yap" />
+                       <button hidden="hidden" class="g-recaptcha" 
+        data-sitekey="6LcP74wjAAAAACiN-pVZupyV4nGo3AL0VJHtksPW" 
+        data-callback='onSubmit' 
+        data-action='submit'>Submit</button>
                     </div>
                 </div>
                 <div class="tab-pane fade" id="pills-profile" role="tabpanel" aria-labelledby="pills-profile-tab">
@@ -179,6 +183,10 @@
 </html>
 
     </form>
-
-
+     <script src="https://www.google.com/recaptcha/api.js"></script>
+     <script>
+   function onSubmit(token) {
+     document.getElementById("demo-form").submit();
+   }
+ </script>
    </asp:Content>

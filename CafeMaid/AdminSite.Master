@@ -1,4 +1,4 @@
-﻿<%@ Master Language="C#" AutoEventWireup="true" CodeBehind="Site.master.cs" Inherits="CafeMaid.SiteMaster" %>
+﻿<%@ Master Language="C#" AutoEventWireup="true" CodeBehind="AdminSite.master.cs" Inherits="CafeMaid.AdminSite" %>
 
 <!DOCTYPE html>
 
@@ -195,7 +195,13 @@
                     <div class="collapse navbar-collapse" id="navbarSupportedContent">
                         <ul class="navbar-nav  mx-auto ">
                             <li class="nav-item ">
-                                <a class="nav-link" href="Login.aspx">Home </a>
+                                <a class="nav-link" href="Login.aspx">Kategori Ekleme </a>
+                            </li>
+                                <li class="nav-item ">
+                                <a class="nav-link" href="Login.aspx">Urun Ekleme </a>
+                            </li>
+                              <li class="nav-item ">
+                                <a class="nav-link" href="Login.aspx">Kullanicilar </a>
                             </li>
                             <li class="nav-item dropdown active">
                                 <a class="nav-link" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">Menu
@@ -203,12 +209,6 @@
                                 <ul id="down_menu_item" class="dropdown-menu" aria-labelledby="dropdownMenuButton">
                                     <%-- VeriTabanından gelen verileri yazdır.... --%>
                                 </ul>
-                            </li>
-                            <li class="nav-item">
-                                <a class="nav-link" href="about.html">About <span class="sr-only">(current)</span> </a>
-                            </li>
-                            <li class="nav-item">
-                                <a class="nav-link" href="book.html">Book Table</a>
                             </li>
                         </ul>
 
@@ -284,12 +284,8 @@
                                 <span class="sclose"><i class="fa fa-times"></i></span>
                             </div>
 
-                            <a href="Profil.aspx" class="user_link">
+                            <a href="Login.aspx" class="user_link">
                                 <i class="fa fa-user" aria-hidden="true"></i>
-                                 <div class="dropdown" style="margin-right: 5px;">
-                                <a class="cart_link" href="#">
-                                    </a>
-                                     </div>
                             </a>
 
 
@@ -411,6 +407,8 @@
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-nice-select/1.1.0/js/jquery.nice-select.min.js"></script>
     <!-- custom js -->
     <script src="Scripts/custom.js"></script>
+    <!-- Google Map -->
+    <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyCh39n5U-4IoWpsVGUHWdqB6puEkhRLdmI&callback=myMap">
     </script>
     <!-- End Google Map -->
 

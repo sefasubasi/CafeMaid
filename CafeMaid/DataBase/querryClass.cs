@@ -36,7 +36,7 @@ namespace CafeMaid.DataBase
 "set @userId=(select id from KullaniciTable where kullaniciAdi=@kullaniciAdi) " +
 "if (@userId is null) " +
 "begin " +
-"insert into KullaniciTable(kullaniciAdi,Sifre) OUTPUT inserted.id  values  (@kullaniciAdi,@sifre) " +
+"insert into KullaniciTable(kullaniciAdi,ePosta,telefonNo,sifre,isAdmin) OUTPUT inserted.id  values  (@kullaniciAdi,@ePosta,@telefonNo,@sifre,@isAdmin) " +
 "end; " +
 "else if(@userId!=0) " +
 "begin " +
@@ -46,7 +46,11 @@ namespace CafeMaid.DataBase
 
 
                 cmd.Parameters.AddWithValue("@kullaniciAdi", userModel.KullaniciAdi);
+                cmd.Parameters.AddWithValue("@ePosta", userModel.EPosta);
+                cmd.Parameters.AddWithValue("@telefonNo", userModel.TelefonNo);
                 cmd.Parameters.AddWithValue("@sifre", userModel.Sifre);//
+                cmd.Parameters.AddWithValue("@isAdmin", userModel.IsAdmin);
+
 
                 reader = cmd.ExecuteReader();
 
@@ -79,7 +83,7 @@ namespace CafeMaid.DataBase
 //"end; ";
 
         }
-        public Boolean LoginUser(userModel userModel)
+        public userModel LoginUser(userModel userModel)
         {
 
             try
@@ -93,25 +97,33 @@ namespace CafeMaid.DataBase
                 }
                 cmd.Connection = dataCon.con;
                 cmd.CommandText = "select * from KullaniciTable   WHERE   kullaniciAdi Collate SQL_Latin1_General_CP1254_CS_AS = @kullaniciAdi  and sifre Collate SQL_Latin1_General_CP1254_CS_AS = @sifre";
+
                 cmd.Parameters.AddWithValue("@kullaniciAdi", userModel.KullaniciAdi);
                 cmd.Parameters.AddWithValue("@sifre", userModel.Sifre);
 
 
                 dr = cmd.ExecuteReader();
+                userModel user=new userModel();
 
                 if (dr.Read())
                 {
+                     user.Id = Convert.ToInt32((String.Format("{0}", dr["id"])));
+                    user.KullaniciAdi = (String.Format("{0}", dr["kullaniciAdi"]));
+                    user.EPosta = (String.Format("{0}", dr["ePosta"]));
+                    user.TelefonNo = (String.Format("{0}", dr["telefonNo"]));
+                    user.IsAdmin =(bool) bool.Parse(String.Format("{0}", dr["isAdmin"]));
+                    user.Sifre = (String.Format("{0}", dr["sifre"]));
 
                     dataCon.con.Close();
-                    return true;
+                    return user;
                 }
                 dr.Close();
-                return false;
+                return null;
             }
             catch (Exception e)
             {
                 Console.WriteLine(e.ToString());
-                return false;
+                return null;
             }
 
         }
