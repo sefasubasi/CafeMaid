@@ -9,6 +9,7 @@ using System.Web.UI.WebControls;
 using System.Data;
 using System.Data.SqlClient;
 using System.Web.Services.Description;
+using Newtonsoft.Json;
 
 namespace CafeMaid
 {
@@ -21,25 +22,36 @@ namespace CafeMaid
 
         }
 
+
+
         protected void Button1_Click(object sender, EventArgs e)
         {
 
-
             userModel user = new userModel(0, TextBox1.Text, TextBox2.Text);
-            if (querry.LoginUser(user))
+            user = querry.LoginUser(user);
+            if (user!=null)
             {
                 Session.Timeout = 10;                
                 Session.Add("KullaniciAdi", TextBox1.Text);
                 Session.Add("Sifre", TextBox2.Text);
-                Response.Redirect("Menu.aspx",true);
                 ScriptManager.RegisterStartupScript(this, GetType(), "Popup", "successAlert();", true);
+                if (user.IsAdmin)
+                {
+                    Response.Redirect("Contact.aspx", true);
 
+                }
+                else
+                {
+                    Response.Redirect("Menu.aspx", true);
+
+                }
             }
             else
             {
                 ScriptManager.RegisterStartupScript(this, GetType(), "Popup", "falseAlert();", true);
             }
                
+
         }
         protected void Button2_Click(object sender, EventArgs e)
         {

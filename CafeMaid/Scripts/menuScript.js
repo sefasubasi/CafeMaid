@@ -177,7 +177,10 @@ function SepeteEkle(id) {
 
                 // alert("Siparisiniz Alındı.");
 
-
+            }
+            else {
+                alert("Sepete eklemeden önce giriş yapmalısınız! ");
+                window.location = "Login.aspx";
             }
             else {
                 alert("Sepette eklemeden önce giriş yapmalısınız!");
@@ -188,6 +191,8 @@ function SepeteEkle(id) {
 
         },
         error: function (req, status, error) {
+            alert("Sepete eklemeden önce giriş yapmalısınız! ");
+                window.location = "Login.aspx";
             console.log(error)
         }
     });
@@ -289,7 +294,8 @@ function generateOdemeSepetItem(data) {
         "<div class='d-flex flex-row'><img class='rounded' src='" + data.UrunImage + "' width='40'>" +
         "<div class='ml-2'><span class='font-weight-bold d-block'>" + data.UrunAdi + "</span><span class='spec'>" + data.UrunAciklama + "</span></div>" +
         "</div>" +
-        "<div class='d-flex flex-row align-items-center'><span class='d-block'>" + data.UrunAdet + "</span><span class='d-block ml-5 font-weight-bold'>₺" + data.UrunFiyat * data.UrunAdet + "</span></div>" +
+
+        "<div class='d-flex flex-row align-items-center '><div class='row' style=' padding:5px; border-width:3px; border-style:groove;'><span class='d-block'>" + data.UrunAdet + "</span><span class='d-block ml-2 '> X </span><span class='d-block ml-2 font-weight-bold'>" + data.UrunFiyat + "₺</span></div><span class='d-block ml-5 font-weight-bold'>₺" + data.UrunFiyat * data.UrunAdet + "</span></div>" +
         "<span class='item-right'>" +
 
         "<div class='input-group'>" +
@@ -458,6 +464,11 @@ function generateKategoriItem(id, isim) {
 }
 function itemOnclick(id) {
     //location.replace("/Menu.aspx");
+    sessionStorage["urunId"] = id;
+
+
+
+    window.location.pathname != "/Menu.aspx" ? window.location = "Menu.aspx":null;
 
     UrunList(id);
 }

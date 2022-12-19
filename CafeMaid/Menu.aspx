@@ -56,8 +56,8 @@ body {
 
 <body class="sub_page">
     <script src="Scripts/menuScript.js"></script>
-   <script>UrunListAll()</script>
    <script>SepeteListesi()</script>
+  <script>(sessionStorage["urunId"] != null ? UrunList(sessionStorage["urunId"]) : UrunListAll())</script> 
         
 
   <section class="about_section layout_padding">

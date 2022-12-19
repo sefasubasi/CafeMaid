@@ -50,6 +50,7 @@ namespace CafeMaid
  
 
         [WebMethod(EnableSession =true)]
+        [System.Web.Script.Services.ScriptMethod]
         public static bool SepeteUrunEkle(int id,int adet)
         {
         querryClass q = new querryClass();
@@ -89,8 +90,8 @@ namespace CafeMaid
             }
             else
             {
-                
-                //HttpContext.Current.Response.Redirect("~/Login.aspx");
+               
+                HttpContext.Current.Response.Redirect("Login.aspx",true);
 
             }
             return false;
