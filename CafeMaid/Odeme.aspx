@@ -112,6 +112,7 @@
     </style>
 
     <body class ="sub_page">
+        
          <script src="Scripts/menuScript.js"></script>
          <script>SepetOdemeListesi()</script>
 
@@ -151,7 +152,7 @@
                     <div class="d-flex justify-content-between information"><span>Toplam Tutar: </span><span><input disabled="true" style="text-align:center;" type="text" id="TotalTutar" name="TotalTuTar" value="0"/></span></div>
                   
                     <hr />
-                    <button onclick="OdemeYap()" class="btn btn-primary btn-block d-flex justify-content-between mt-3" type="button"><input disabled="true" style="text-align:center;" type="text" id="TotalTutar1" name="TotalTuTar" value="0"/>
+                    <button onclick="OdemeYap()" class="btn btn-primary btn-block d-flex justify-content-between mt-3" type="button"><input style="text-align:center;" type="text" id="TotalTutar1" name="TotalTuTar" value="0"/>
                         <span>Ödeme Yap<i class="fa fa-long-arrow-right ml-1"></i></span></button></div>
             </div>
         </div>

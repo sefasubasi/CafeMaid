@@ -175,9 +175,13 @@ function SepeteEkle(id) {
             if (data.d) {
                 SepeteListesi();
 
-               // alert("Siparisiniz Alındı.");
+                // alert("Siparisiniz Alındı.");
 
 
+            }
+            else {
+                alert("Sepette eklemeden önce giriş yapmalısınız!");
+                window.location = "Login.aspx";
             }
            
 
@@ -226,6 +230,7 @@ function SepeteListesi() {
 
         },
         error: function (req, status, error) {
+         
             console.log(error)
         }
     });
@@ -234,8 +239,8 @@ function SepeteListesi() {
 
 }
 
-function SepetOdemeListesi() {
 
+function SepetOdemeListesi() {
     $.ajax({
         type: "POST",
         contentType: "application/json; charset=utf-8",
@@ -253,11 +258,11 @@ function SepetOdemeListesi() {
             document.getElementById("OdemeSepetListe").innerHTML = "<div class='d-flex flex-row align-items-center'><i class='fa fa-long-arrow-left'></i><a href='Menu.aspx'>Geri</a></div>" +
                 "<hr>";
 
-       
+
 
             for (var i in data.d) {
                 var item = data.d[i];
-            
+
 
                 //document.getElementById("footerDiv").innerHTML += generateItem(item.id,item.adi);
                 document.getElementById("OdemeSepetListe").insertAdjacentHTML("beforeend", generateOdemeSepetItem(item))
