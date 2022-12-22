@@ -31,9 +31,15 @@ namespace CafeMaid
             user = querry.LoginUser(user);
             if (user!=null)
             {
-                Session.Timeout = 10;                
+                Session.Timeout = 10;            
+                
                 Session.Add("KullaniciAdi", TextBox1.Text);
                 Session.Add("Sifre", TextBox2.Text);
+                Session.Add("EPosta", user.EPosta);
+                Session.Add("TelefonNo", user.TelefonNo);
+                Session.Add("IsAdmin", user.IsAdmin);
+                Session.Add("Id", user.Id);
+
                 ScriptManager.RegisterStartupScript(this, GetType(), "Popup", "successAlert();", true);
                 if (user.IsAdmin)
                 {

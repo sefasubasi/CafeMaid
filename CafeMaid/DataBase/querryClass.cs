@@ -70,17 +70,6 @@ namespace CafeMaid.DataBase
                 Console.WriteLine(e.ToString());
                 return false;
             }
-//            cmd.CommandText = "declare @userId as int; " +
-//"set @userId=(select id from KullaniciTable where kullaniciAdi=@kullaniciAdi) " +
-//"if (@userId is null) " +
-//"begin " +
-//"insert into KullaniciTable(kullaniciAdi,Sifre) OUTPUT inserted.id  values  (@kullaniciAdi,@sifre) " +
-//"end; " +
-//"else if(@userId!=0) " +
-//"begin " +
-//"declare @s Table( id  int)   " +
-//"select* from @s " +
-//"end; ";
 
         }
         public userModel LoginUser(userModel userModel)
@@ -458,7 +447,7 @@ namespace CafeMaid.DataBase
             }
 
         }
-        public Boolean odemeYap(string kAdi)
+        public Boolean odemeYap(string kAdi,int kartId)
         {
             try
             {
@@ -473,12 +462,17 @@ namespace CafeMaid.DataBase
                 cmd.Connection = dataCon.con;
              
 
-                    cmd.CommandText = "update SiparisTable set siparisState=1 where id=" +
-                    "(select id from SiparisTable where siparisState=0 and userId = (select id from KullaniciTable where kullaniciAdi = @kAdi))";
+                    cmd.CommandText = "declare @sId int; " +
+"set @sId = (select id from SiparisTable where siparisState=0 and userId = (select id from KullaniciTable where kullaniciAdi = @kAdi )) " +
+"update SiparisTable set siparisState=1 where id= " +
+"(select id from SiparisTable where siparisState=0 and userId =(select id from KullaniciTable where kullaniciAdi = @KAdi)); " +
+"insert into KullaniciToFaturaTable (siparisId,kartId) values ( @sId, @kId ); " +
 
 
 
                 cmd.Parameters.AddWithValue("@kAdi", kAdi);
+                cmd.Parameters.AddWithValue("@kId", kartId);
+
 
 
                 cmd.ExecuteNonQuery();
@@ -539,6 +533,214 @@ namespace CafeMaid.DataBase
             dataCon.con.Close();
             return urunList;
         }
+
+        public Boolean addBankKart(string kAdi,cardModel cardModel)
+        {
+            try
+            {
+
+                //   MessageBox.Show(faturaToStokModel.FaturaId + " " + faturaToStokModel.StokId + " " + faturaToStokModel.Adet);
+                SqlCommand cmd = new SqlCommand();
+            
+                if (dataCon.con.State == ConnectionState.Closed)
+                {
+                    dataCon.con.Open();
+                }
+                cmd.Connection = dataCon.con;
+                cmd.CommandText = "declare @ID table (id int)" +
+                    "update  KartTable set isActive='false' " +
+"where isActive!='false' and id in ( " +
+"select KTK.kartId  " +
+"from KullaniciToKartTable KTK, " +
+"KullaniciTable K " +
+"where K.id=KTK.kullaniciId and " +
+"K.kullaniciAdi=@kAdi ) " +
+"insert into KartTable (kartEtiket,kartSahibi,kartNo,kartSKT,kartCvc,isActive)" +
+" OUTPUT inserted.id into @ID values (@kartEtiket,@kartSahibi,@kartNo,@kartSKT,@kartCvc,@isActive)" +
+"insert into KullaniciToKartTable(kullaniciId, kartId) values " +
+"((select id from KullaniciTable where kullaniciAdi = @kAdi),(select id from @ID))";
+
+
+
+                cmd.Parameters.AddWithValue("@kAdi", kAdi);
+                cmd.Parameters.AddWithValue("@kartEtiket", cardModel.KartEtiket);
+                cmd.Parameters.AddWithValue("@kartSahibi", cardModel.KartSahibi);
+                cmd.Parameters.AddWithValue("@kartNo", cardModel.KartNo);
+                cmd.Parameters.AddWithValue("@kartCvc", cardModel.KartCvc);
+                cmd.Parameters.AddWithValue("@KartSKT", cardModel.KartSKT);
+                cmd.Parameters.AddWithValue("@isActive", cardModel.IsActive);
+
+                cmd.ExecuteNonQuery();
+ 
+                    dataCon.con.Close();
+                    return true;
+               
+
+            }
+            catch (Exception e)
+            {
+                Console.WriteLine(e.ToString());
+                return false;
+            }
+
+        }
+        public Boolean bankKartSil(string kAdi, int kartId)
+        {
+            try
+            {
+
+                //   MessageBox.Show(faturaToStokModel.FaturaId + " " + faturaToStokModel.StokId + " " + faturaToStokModel.Adet);
+                SqlCommand cmd = new SqlCommand();
+               
+                if (dataCon.con.State == ConnectionState.Closed)
+                {
+                    dataCon.con.Open();
+                }
+                cmd.Connection = dataCon.con;
+                cmd.CommandText ="if((select isActive from KartTable where id=@kartId)!=0) " +
+                                "begin  " +
+                                "update  KartTable set isActive='true' " +
+                                "where isActive!='true' and id = ( " +
+                                "select max(KTK.kartId ) " +
+                                "from KullaniciToKartTable KTK, " +
+                                "KullaniciTable K, " +
+                                "KartTable KT " +
+                                "where  KT.id=KTK.kartId  and KT.isActive='false' and K.id=KTK.kullaniciId and " +
+                                "K.kullaniciAdi='user' ) " +
+                                "end; " +
+                                "delete from KullaniciToKartTable where  kartId=@kartId and kullaniciId=(select id from KullaniciTable where kullaniciAdi=@kAdi); " +
+                                "delete from KartTable where id=@kartId; ";
+
+
+
+
+
+                cmd.Parameters.AddWithValue("@kAdi", kAdi);
+                cmd.Parameters.AddWithValue("@kartId", kartId);
+
+
+
+                cmd.ExecuteNonQuery();
+
+
+                dataCon.con.Close();
+                return true;
+
+
+
+            }
+            catch (Exception e)
+            {
+                Console.WriteLine(e.ToString());
+                return false;
+            }
+
+        }
+        public List<cardModel> bankKartListesi(string kAdi)
+        // public List<urunModel> stokListesi(int type, string search)
+        {
+            List<cardModel> cardList = new List<cardModel>();
+            SqlCommand cmd = new SqlCommand();
+            SqlDataReader reader;
+
+            cmd.CommandText ="select * from KartTable " +
+"where id in ( " +
+"select KTK.kartId  " +
+"from KullaniciToKartTable KTK, " +
+"KullaniciTable K " +
+"where K.id=KTK.kullaniciId and " +
+"K.kullaniciAdi=@kAdi ) ";
+
+            cmd.Parameters.AddWithValue("@kAdi", kAdi);
+
+
+            cmd.CommandType = CommandType.Text;
+            cmd.Connection = dataCon.con;
+
+
+            if (dataCon.con.State == ConnectionState.Closed)
+            {
+
+                dataCon.con.Open();
+
+            }
+
+            reader = cmd.ExecuteReader();
+
+            while (reader.Read())
+            {
+
+                cardModel card = new cardModel();
+                card.Id = Convert.ToInt32((String.Format("{0}", reader["id"])));
+                card.KartEtiket = (String.Format("{0}", reader["kartEtiket"]));
+                card.KartSahibi =(String.Format("{0}", reader["kartSahibi"]));
+                card.KartNo = (String.Format("{0}", reader["kartNo"]));
+                card.KartSKT = (String.Format("{0}", reader["kartSKT"]));
+                card.KartCvc = (String.Format("{0}", reader["kartCvc"]));
+                card.IsActive = (bool)bool.Parse(String.Format("{0}", reader["isActive"]));
+
+
+
+
+
+                cardList.Add(card);
+                //settingsCihazMarkaCombo.Items.Add(sonuc1);
+
+            }
+            //textBox1.Text = sonuc + "  " + sonuc1;
+            dataCon.con.Close();
+            return cardList;
+        }
+
+        public List<siparisModel> siparisListesi(string kAdi)
+        // public List<urunModel> stokListesi(int type, string search)
+        {
+            List<siparisModel> siparisList = new List<siparisModel>();
+            SqlCommand cmd = new SqlCommand();
+            SqlDataReader reader;
+
+            cmd.CommandText = "select * from SiparisTable  where siparisState='true' and  " +
+"userId=(select id from KullaniciTable where kullaniciAdi=@kAdi) ";
+
+            cmd.Parameters.AddWithValue("@kAdi", kAdi);
+
+
+            cmd.CommandType = CommandType.Text;
+            cmd.Connection = dataCon.con;
+
+
+            if (dataCon.con.State == ConnectionState.Closed)
+            {
+
+                dataCon.con.Open();
+
+            }
+
+            reader = cmd.ExecuteReader();
+
+            while (reader.Read())
+            {
+
+                siparisModel siparis = new siparisModel();
+                siparis.Id = Convert.ToInt32((String.Format("{0}", reader["id"])));
+                siparis.UserId = Convert.ToInt32(String.Format("{0}", reader["userId"]));
+                siparis.SiparisNo= (String.Format("{0}", reader["siparisNo"]));
+                siparis.SiparisDate = DateTime.Parse(String.Format("{0}", reader["siparisDate"]));  
+                siparis.SiparisState= (bool)bool.Parse(String.Format("{0}", reader["siparisState"]));
+
+
+
+
+
+                siparisList.Add(siparis);
+                //settingsCihazMarkaCombo.Items.Add(sonuc1);
+
+            }
+            //textBox1.Text = sonuc + "  " + sonuc1;
+            dataCon.con.Close();
+            return siparisList;
+        }
+
 
 
         public List<kategoriModel> kategoriListesi()

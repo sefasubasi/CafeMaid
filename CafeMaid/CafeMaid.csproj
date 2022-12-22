@@ -192,7 +192,9 @@
     <Compile Include="Login.aspx.designer.cs">
       <DependentUpon>Login.aspx</DependentUpon>
     </Compile>
+    <Compile Include="Models\cardModel.cs" />
     <Compile Include="Models\kategoriModel.cs" />
+    <Compile Include="Models\siparisModel.cs" />
     <Compile Include="Models\urunModel.cs" />
     <Compile Include="Models\userModel.cs" />
     <Compile Include="Odeme.aspx.cs">
