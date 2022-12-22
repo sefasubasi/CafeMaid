@@ -46,8 +46,64 @@ namespace CafeMaid
 
             return testObj;
         }
-        
- 
+
+
+        [WebMethod]
+        public static List<siparisModel> GetSiparisList(string str)
+        {
+            querryClass q = new querryClass();
+
+            List<siparisModel> testObj = new List<siparisModel>();
+
+
+            testObj = q.siparisListesi("user");
+
+
+
+            return testObj;
+        }
+
+
+        [WebMethod]
+        public static bool AddBankKart(string kartSahibi,string kartNo,string kartCvc,string kartSKT)
+        {
+            querryClass q = new querryClass();
+
+
+            cardModel card = new cardModel();
+            card.KartEtiket = "etiket";
+            card.KartSahibi = kartSahibi;
+            card.KartNo = kartNo;
+            card.KartCvc = kartCvc;
+            card.KartSKT = kartSKT;
+            card.IsActive = true;
+
+           return  q.addBankKart("user",card);
+
+        }
+
+        [WebMethod]
+        public static bool BankKartSil(int kartId)
+        {
+            querryClass q = new querryClass();
+
+            return q.bankKartSil("user", kartId);
+        }
+
+        [WebMethod]
+        public static List<cardModel> GetBankKartList(string str)
+        {
+            querryClass q = new querryClass();
+
+            List<cardModel> testObj = new List<cardModel>();
+
+
+            testObj = q.bankKartListesi("user");
+
+
+
+            return testObj;
+        }
 
         [WebMethod(EnableSession =true)]
         [System.Web.Script.Services.ScriptMethod]
@@ -74,19 +130,13 @@ namespace CafeMaid
 
                     for (int i = 0; i < 8; i++) siparisNo += (a[(rnd.Next() % 62)]);
 
-
-
-
                     siparisId = q.createOrder(kAdi, siparisNo);
 
                 }
 
-
-
-
-
-
                 return q.insertOrderItem(siparisId, id, adet);
+
+
             }
             else
             {

@@ -57,8 +57,8 @@ body {
 <body class="sub_page">
     <script src="Scripts/menuScript.js"></script>
    <script>SepeteListesi()</script>
-  <script>(sessionStorage["urunId"] != null ? UrunList(sessionStorage["urunId"]) : UrunListAll())</script> 
-        
+  <script>(sessionStorage["urunId"] != null ? UrunList(sessionStorage["urunId"]) : UrunListAll()); </script> 
+        <script>sessionStorage.removeItem("urunId");</script>
 
   <section class="about_section layout_padding">
 
