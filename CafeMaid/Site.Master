@@ -1,4 +1,4 @@
-﻿<%@ Master Language="C#" AutoEventWireup="true" CodeBehind="Site.master.cs" Inherits="CafeMaid.SiteMaster" %>
+﻿﻿<%@ Master Language="C#" AutoEventWireup="true" CodeBehind="Site.master.cs" Inherits="CafeMaid.SiteMaster" %>
 
 <!DOCTYPE html>
 
@@ -174,6 +174,9 @@
     <%--<script>SepetOdemeListesi()</script>--%>
 
 
+
+
+
     <div class="hero_area">
         <div class="bg-box">
             <img src="images/hero-bg.jpg" alt="">
@@ -212,11 +215,22 @@
                             </li>
                         </ul>
 
-                        <div class="user_option" style="margin-right: 100px;">
+                        <div class="user_option">
 
-                            <div class="dropdown" style="margin-right: 5px;">
+                          
+
+
+                            <div class="search-form">
+                                <span class="slens"><i class="fa fa-search"></i></span>
+                                <input id="aramaText" onkeyup="UrunArama()" type="text"/>
+                                <span class="sclose"><i class="fa fa-times"></i></span>
+                            </div>
+
+
+
+                              <div class="dropdown">
                                 <a class="cart_link" href="#">
-                                    <svg version="1.1" id="Capa_1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px" viewBox="0 0 456.029 456.029" style="enable-background: new 0 0 456.029 456.029;" xml:space="preserve">
+                                    <svg version="1.1" id="Capa_1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px" viewBox="0 0 456.029 456.029"  xml:space="preserve">
                                         <g>
                                             <g>
                                                 <path d="M345.6,338.862c-29.184,0-53.248,23.552-53.248,53.248c0,29.184,23.552,53.248,53.248,53.248
@@ -237,36 +251,7 @@
                    c1.024,28.16,24.064,50.688,52.224,50.688h1.024C193.536,443.31,216.576,418.734,215.04,389.55z" />
                                             </g>
                                         </g>
-                                        <g>
-                                        </g>
-                                        <g>
-                                        </g>
-                                        <g>
-                                        </g>
-                                        <g>
-                                        </g>
-                                        <g>
-                                        </g>
-                                        <g>
-                                        </g>
-                                        <g>
-                                        </g>
-                                        <g>
-                                        </g>
-                                        <g>
-                                        </g>
-                                        <g>
-                                        </g>
-                                        <g>
-                                        </g>
-                                        <g>
-                                        </g>
-                                        <g>
-                                        </g>
-                                        <g>
-                                        </g>
-                                        <g>
-                                        </g>
+                                       
                                     </svg>
                                 </a>
                                 <ul id="sepetListMenu" class="dropdown-menu dropdown-cart" role="menu">
@@ -278,19 +263,31 @@
                             </div>
 
 
-                            <div class="search-form">
-                                <span class="slens"><i class="fa fa-search"></i></span>
-                                <input id="aramaText" onkeyup="UrunArama()" type="text" />
-                                <span class="sclose"><i class="fa fa-times"></i></span>
-                            </div>
 
-                            <a href="Profil.aspx" class="user_link">
-                                <i class="fa fa-user" aria-hidden="true"></i>
-                                 <div class="dropdown" style="margin-right: 5px;">
-                                <a class="cart_link" href="#">
-                                    </a>
-                                     </div>
-                            </a>
+                             <ul class="navbar-nav ms-auto ms-md-0 me-3 me-lg-4" style="padding:0px 0px 0px 0px; margin:0px 0px 0px 0px;">
+                                <li class="nav-item dropdown">
+                                    <a class="nav-link dropdown-toggle" style=" padding:5px 5px 5px 5px; margin:0px 0px 0px 0px; " id="navbarDropdown" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false"><i class="fa fa-user" aria-hidden="true"></i></a>
+                                    <ul class="dropdown-menu dropdown-menu-end" aria-labelledby="navbarDropdown">
+                                        <li id="profil" ><a style="width:135px;" class="dropdown-item" href="Profil.aspx">Profil</a></li>
+                                        <li><hr class="dropdown-divider" /></li>
+                                        <li id="cikis"><a style="width:135px" class="dropdown-item" href="Login.aspx">Çıkış</a></li>
+                                    </ul>
+                                </li>
+                            </ul>
+
+                            
+    <script>
+
+
+        var k ='<%= Session["KullaniciAdi"]%>';
+        (k != "") ? document.getElementById("profil").setAttribute("style", "visibility:visible") : document.getElementById("profil").setAttribute("style", "visibility:hidden;");
+        (k != "") ? document.getElementById("cikis").setAttribute("style", "visibility:visible") : document.getElementById("cikis").setAttribute("style", "visibility:hidden;");
+
+    </script>
+
+
+
+                         
 
 
 

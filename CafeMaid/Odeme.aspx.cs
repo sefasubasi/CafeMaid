@@ -18,7 +18,7 @@ namespace CafeMaid
         }
 
         [WebMethod]
-        public static bool OdemeYap(string str)
+        public static bool OdemeYap(int kartId)
         {
             string kAdi = "";
             if (HttpContext.Current.Session["kullaniciAdi"] != null)
@@ -28,7 +28,7 @@ namespace CafeMaid
             }
             querryClass q = new querryClass();
 
-            return q.odemeYap(kAdi); 
+            return q.odemeYap(kAdi,kartId); 
 
 
         }
