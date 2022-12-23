@@ -193,24 +193,34 @@
                     </button>
 
                     <div class="collapse navbar-collapse" id="navbarSupportedContent">
-                        <ul class="navbar-nav  mx-auto ">
-                            <li class="nav-item ">
-                                <a class="nav-link" href="Login.aspx">Kategori Ekleme </a>
-                            </li>
-                                <li class="nav-item ">
-                                <a class="nav-link" href="Login.aspx">Urun Ekleme </a>
-                            </li>
-                              <li class="nav-item ">
-                                <a class="nav-link" href="Login.aspx">Kullanicilar </a>
-                            </li>
-                            <li class="nav-item dropdown active">
-                                <a class="nav-link" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">Menu
-                                </a>
-                                <ul id="down_menu_item" class="dropdown-menu" aria-labelledby="dropdownMenuButton">
-                                    <%-- VeriTabanından gelen verileri yazdır.... --%>
-                                </ul>
-                            </li>
-                        </ul>
+
+                        
+                        <ul class="nav nav-pills mb-3" id="pills-tab" role="tablist">
+                        <li class="nav-item text-center">
+                          <a class="nav-link" id="pills-panel-tab" data-toggle="pill" href="#pills-panel" role="tab" aria-controls="pills-home" aria-selected="true">
+
+                        
+                                    <h2 style="margin-bottom:5px; text-align:center; font-size:25px;" >
+                                         Panel
+                                    </h2>
+
+                          </a>
+                        </li>
+                        <li class="nav-item text-center">
+                          <a class="nav-link btr" id="pills-veri-tab" data-toggle="pill" href="#pills-veri" role="tab" aria-controls="pills-profile" aria-selected="false">
+
+                              <div class="heading_container">
+                                    <h2 style="margin-bottom:5px; text-align:center; font-size:25px;" >
+                                         Veri Girişi
+                                    </h2>
+                                </div>
+                          </a>
+                        </li>
+               
+                      </ul>
+
+
+
 
                         <div class="user_option" style="margin-right: 100px;">
 
@@ -237,38 +247,13 @@
                    c1.024,28.16,24.064,50.688,52.224,50.688h1.024C193.536,443.31,216.576,418.734,215.04,389.55z" />
                                             </g>
                                         </g>
-                                        <g>
-                                        </g>
-                                        <g>
-                                        </g>
-                                        <g>
-                                        </g>
-                                        <g>
-                                        </g>
-                                        <g>
-                                        </g>
-                                        <g>
-                                        </g>
-                                        <g>
-                                        </g>
-                                        <g>
-                                        </g>
-                                        <g>
-                                        </g>
-                                        <g>
-                                        </g>
-                                        <g>
-                                        </g>
-                                        <g>
-                                        </g>
-                                        <g>
-                                        </g>
-                                        <g>
-                                        </g>
-                                        <g>
-                                        </g>
+                                       
                                     </svg>
                                 </a>
+
+
+
+
                                 <ul id="sepetListMenu" class="dropdown-menu dropdown-cart" role="menu">
 
 
@@ -284,8 +269,12 @@
                                 <span class="sclose"><i class="fa fa-times"></i></span>
                             </div>
 
-                            <a href="Login.aspx" class="user_link">
+                            <a href="Profil.aspx" class="user_link">
                                 <i class="fa fa-user" aria-hidden="true"></i>
+                                 <div class="dropdown" style="margin-right: 5px;">
+                                <a class="cart_link" href="#">
+                                    </a>
+                                     </div>
                             </a>
 
 
@@ -302,94 +291,10 @@
 
     </div>
 
-
-
     <asp:ContentPlaceHolder ID="MainContent" runat="server">
     </asp:ContentPlaceHolder>
 
 
-
-
-
-    <!-- footer section -->
-    <footer class="footer_section">
-        <div class="container">
-            <div class="row">
-                <div class="col-md-4 footer-col">
-                    <div class="footer_contact">
-                        <h4>Contact Us
-                        </h4>
-                        <div class="contact_link_box">
-                            <a href="">
-                                <i class="fa fa-map-marker" aria-hidden="true"></i>
-                                <span>Location
-                                </span>
-                            </a>
-                            <a href="">
-                                <i class="fa fa-phone" aria-hidden="true"></i>
-                                <span>Call +01 1234567890
-                                </span>
-                            </a>
-                            <a href="">
-                                <i class="fa fa-envelope" aria-hidden="true"></i>
-                                <span>demo@gmail.com
-                                </span>
-                            </a>
-                        </div>
-                    </div>
-                </div>
-                <div class="col-md-4 footer-col">
-                    <div class="footer_detail">
-                        <a href="" class="footer-logo">CafeMaid
-                        </a>
-                        <p>
-                            Necessary, making this the first true generator on the Internet. It uses a dictionary of over 200 Latin words, combined with
-                        </p>
-                        <div class="footer_social">
-                            <a href="">
-                                <i class="fa fa-facebook" aria-hidden="true"></i>
-                            </a>
-                            <a href="">
-                                <i class="fa fa-twitter" aria-hidden="true"></i>
-                            </a>
-                            <a href="">
-                                <i class="fa fa-linkedin" aria-hidden="true"></i>
-                            </a>
-                            <a href="">
-                                <i class="fa fa-instagram" aria-hidden="true"></i>
-                            </a>
-                            <a href="">
-                                <i class="fa fa-pinterest" aria-hidden="true"></i>
-                            </a>
-                        </div>
-                    </div>
-                </div>
-                <div class="col-md-4 footer-col">
-                    <h4>Opening Hours
-                    </h4>
-                    <p>
-                        Everyday
-                    </p>
-                    <p>
-                        10.00 Am -10.00 Pm
-                    </p>
-                </div>
-            </div>
-            <div class="footer-info">
-                <p>
-                    &copy; <span id="displayYear"></span>All Rights Reserved By
-          <a href="https://html.design/">Free Html Templates</a><br>
-                    <br>
-                    &copy; <span id="displayYear"></span>Distributed By
-          <a href="https://themewagon.com/" target="_blank">ThemeWagon</a>
-                </p>
-            </div>
-        </div>
-    </footer>
-    <!-- footer section -->
-
-
-    <!-- footer section -->
 
     <!-- jQery -->
 
@@ -407,8 +312,6 @@
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-nice-select/1.1.0/js/jquery.nice-select.min.js"></script>
     <!-- custom js -->
     <script src="Scripts/custom.js"></script>
-    <!-- Google Map -->
-    <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyCh39n5U-4IoWpsVGUHWdqB6puEkhRLdmI&callback=myMap">
     </script>
     <!-- End Google Map -->
 
