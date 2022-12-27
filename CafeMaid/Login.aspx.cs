@@ -19,6 +19,7 @@ namespace CafeMaid
         querryClass querry = new querryClass();
         protected void Page_Load(object sender, EventArgs e)
         {
+           
 
         }
 
@@ -48,7 +49,8 @@ namespace CafeMaid
                 }
                 else
                 {
-                    Response.Redirect("Menu.aspx", true);
+                    Response.AddHeader("Refresh", "3; url=menu.aspx");
+                    //Response.Redirect("Menu.aspx", true);
 
                 }
             }

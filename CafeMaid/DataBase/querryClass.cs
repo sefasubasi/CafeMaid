@@ -5,6 +5,7 @@ using System.Data;
 using System.Data.SqlClient;
 using System.Linq;
 using System.Web;
+using System.Web.UI.WebControls;
 
 namespace CafeMaid.DataBase
 {
@@ -200,6 +201,207 @@ namespace CafeMaid.DataBase
             }
 
         }
+
+
+        public int ToplamKullanici()
+        {
+            
+            SqlCommand cmd = new SqlCommand();
+            SqlDataReader dr;
+            if (dataCon.con.State == ConnectionState.Closed)
+            {
+                dataCon.con.Open();
+            }
+            cmd.Connection = dataCon.con;
+            cmd.CommandText = "select COUNT(id) as cnt from KullaniciTable";
+
+            dr = cmd.ExecuteReader();
+            int temp=-1;
+            if(dr.Read())
+            {
+                temp = Convert.ToInt32(dr["cnt"].ToString());
+            }
+
+                dataCon.con.Close();
+                return temp;
+
+        }
+
+
+        public int ToplamUrun()
+        {
+
+            SqlCommand cmd = new SqlCommand();
+            SqlDataReader dr;
+            if (dataCon.con.State == ConnectionState.Closed)
+            {
+                dataCon.con.Open();
+            }
+            cmd.Connection = dataCon.con;
+            cmd.CommandText = " select COUNT(id) as cnt from UrunTable";
+
+            dr = cmd.ExecuteReader();
+            int temp = -1;
+            if (dr.Read())
+            {
+                temp = Convert.ToInt32(dr["cnt"].ToString());
+            }
+
+            dataCon.con.Close();
+            return temp;
+
+        }
+
+
+        public int aktif_adisyon()
+        {
+
+            SqlCommand cmd = new SqlCommand();
+            SqlDataReader dr;
+            if (dataCon.con.State == ConnectionState.Closed)
+            {
+                dataCon.con.Open();
+            }
+            cmd.Connection = dataCon.con;
+            cmd.CommandText = "select count(*) as cnt from SiparisTable where siparisState=0;";
+
+            dr = cmd.ExecuteReader();
+            int temp = -1;
+            if (dr.Read())
+            {
+                temp = Convert.ToInt32(dr["cnt"].ToString());
+            }
+
+            dataCon.con.Close();
+            return temp;
+
+        }
+
+        public int tamamla_adisyon()
+        {
+
+            SqlCommand cmd = new SqlCommand();
+            SqlDataReader dr;
+            if (dataCon.con.State == ConnectionState.Closed)
+            {
+                dataCon.con.Open();
+            }
+            cmd.Connection = dataCon.con;
+            cmd.CommandText = "select count(*)+1 as cnt from SiparisTable where siparisState=1 and siparisDate=(SELECT CONVERT(char(10), GetDate(),126))";
+
+            dr = cmd.ExecuteReader();
+            int temp = -1;
+            if (dr.Read())
+            {
+                temp = Convert.ToInt32(dr["cnt"].ToString());
+            }
+
+            dataCon.con.Close();
+            return temp;
+        }
+
+        public List<urunModel> urunRapor()
+        // public List<urunModel> stokListesi(int type, string search)
+        {
+            List<urunModel> urunList = new List<urunModel>();
+            SqlCommand cmd = new SqlCommand();
+            SqlDataReader reader;
+
+            cmd.CommandText = "declare @table Table(urun_id varchar(50) ,toplam_adet varchar(50) ); " +
+                "iNSERT INTO @table(urun_id, toplam_adet) select urunId, SUM(urunAdet) as toplam " +
+                "from SiparisToUrunTable group by urunId order by toplam desc " +
+                "select U.*, Tm.toplam_adet from UrunTable U, @table Tm where U.id= Tm.urun_id ";
+
+
+            cmd.CommandType = CommandType.Text;
+            cmd.Connection = dataCon.con;
+
+
+            if (dataCon.con.State == ConnectionState.Closed)
+            {
+
+                dataCon.con.Open();
+
+            }
+
+            reader = cmd.ExecuteReader();
+
+            while (reader.Read())
+            {
+
+                urunModel urun = new urunModel();
+                urun.Id = Convert.ToInt32((String.Format("{0}", reader["id"])));
+                urun.UrunAdi = (String.Format("{0}", reader["urunAdi"]));
+                urun.KategoriId = Convert.ToInt32((String.Format("{0}", reader["urunKategoriId"])));
+                urun.UrunAciklama = (String.Format("{0}", reader["urunAciklama"]));
+                urun.UrunFiyat = (float)Convert.ToDouble((String.Format("{0}", reader["urunFiyat"])));
+                urun.UrunImage = (String.Format("{0}", reader["urunImage"]));
+                urun.UrunAdet = Convert.ToInt32((String.Format("{0}", reader["toplam_adet"])));
+
+
+
+
+                urunList.Add(urun);
+                //settingsCihazMarkaCombo.Items.Add(sonuc1);
+
+            }
+            //textBox1.Text = sonuc + "  " + sonuc1;
+            dataCon.con.Close();
+            return urunList;
+        }
+
+
+
+
+        public List<kategoriModel> kategoriRapor()
+        // public List<urunModel> stokListesi(int type, string search)
+        {
+            List<kategoriModel> kategoriList = new List<kategoriModel>();
+            SqlCommand cmd = new SqlCommand();
+            SqlDataReader reader;
+
+            cmd.CommandText = "select K.id, K.value,sum(urunAdet) as adet from SiparisToUrunTable STU " +
+                " inner join UrunTable U on U.id=STU.urunId " +
+                " inner join KategoriTable K on K.id=U.urunKategoriId " +
+                " group by K.id,K.value ";
+
+
+            cmd.CommandType = CommandType.Text;
+            cmd.Connection = dataCon.con;
+
+
+            if (dataCon.con.State == ConnectionState.Closed)
+            {
+
+                dataCon.con.Open();
+
+            }
+
+            reader = cmd.ExecuteReader();
+
+            while (reader.Read())
+            {
+
+                kategoriModel kategori = new kategoriModel();
+                kategori.Id = Convert.ToInt32((String.Format("{0}", reader["id"])));
+                kategori.Value = (String.Format("{0}", reader["value"]));
+                kategori.Adet = Convert.ToInt32((String.Format("{0}", reader["adet"])));
+
+
+
+
+                kategoriList.Add(kategori);
+                //settingsCihazMarkaCombo.Items.Add(sonuc1);
+
+            }
+            //textBox1.Text = sonuc + "  " + sonuc1;
+            dataCon.con.Close();
+            return kategoriList;
+        }
+
+
+
+
 
 
         public Boolean insertOrderItem(int siparisNo, int urunId,int urunAdet)
@@ -791,5 +993,73 @@ namespace CafeMaid.DataBase
 
 
 
+        public Boolean insertKategori(kategoriModel model)
+        {
+            try
+            {
+
+                SqlCommand cmd = new SqlCommand();
+
+                if (dataCon.con.State == ConnectionState.Closed)
+                {
+                    dataCon.con.Open();
+                }
+                cmd.Connection = dataCon.con;
+                cmd.CommandText = "INSERT INTO KategoriTable(value) VALUES (@value)";
+
+
+                cmd.Parameters.AddWithValue("@value", model.Value);
+
+
+                cmd.ExecuteNonQuery();
+                dataCon.con.Close();
+                return true;
+            }
+            catch (Exception e)
+            {
+                Console.WriteLine(e.ToString());
+                return false;
+            }
+
+        }
+
+
+        public Boolean insertUrun(urunModel model)
+        {
+            try
+            {
+
+                SqlCommand cmd = new SqlCommand();
+
+                if (dataCon.con.State == ConnectionState.Closed)
+                {
+                    dataCon.con.Open();
+                }
+                cmd.Connection = dataCon.con;
+                cmd.CommandText = "INSERT INTO UrunTable(urunAdi,urunKategoriId,urunAciklama,urunFiyat,urunImage) VALUES (@urunadi,@kategoriid,@urunaciklama,@urunfiyat,@urunimage)";
+                cmd.Parameters.AddWithValue("@urunadi", model.UrunAdi);
+                cmd.Parameters.AddWithValue("@kategoriid", model.KategoriId);
+                cmd.Parameters.AddWithValue("@urunaciklama", model.UrunAciklama);
+                cmd.Parameters.AddWithValue("@urunfiyat", model.UrunFiyat);
+                cmd.Parameters.AddWithValue("@urunimage", model.UrunImage);
+
+
+
+
+                cmd.ExecuteNonQuery();
+                dataCon.con.Close();
+                return true;
+            }
+            catch (Exception e)
+            {
+                Console.WriteLine(e.ToString());
+                return false;
+            }
+
+        }
+
+
     }
 }
+
+

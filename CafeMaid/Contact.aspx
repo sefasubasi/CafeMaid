@@ -10,14 +10,43 @@
      <script src="https://kit.fontawesome.com/9d1d9a82d2.js" crossorigin="anonymous"></script>
 
 <script>
+
+
+    $.ajax({
+        type: "POST",
+        contentType: "application/json; charset=utf-8",
+        //headers: {
+        //    "__RequestVerificationToken": getTextValue("tokenInput")
+        //},
+        url: ("Contact.aspx/kategoriRapor"),
+        data: JSON.stringify(),
+        dataType: "json",
+        success: function (data) {
+            var value = [];
+            var adet = [];
+
+            console.log(data);
+
+
+            for (var i in data.d) {
+                var item = data.d[i];
+
+                value.push(item.Value);
+                adet.push(item.Adet);
+
+            }
+
+
+
+
     $(document).ready(function () {
         var ctx = $("#chart-line");
         var myLineChart = new Chart(ctx, {
             type: 'pie',
             data: {
-                labels: ["Spring", "Summer", "Fall", "Winter"],
+                labels: value,
                 datasets: [{
-                    data: [1200, 1700, 800, 200],
+                    data: adet,
                     backgroundColor: ["rgba(255, 0, 0, 0.5)", "rgba(100, 255, 0, 0.5)", "rgba(200, 50, 255, 0.5)", "rgba(0, 100, 255, 0.5)"]
                 }]
             },
@@ -28,7 +57,11 @@
 
 
 
-
+            },
+    error: function (req, status, error) {
+        console.log(error)
+    }
+    });
 
 </script>
         
@@ -118,20 +151,22 @@
             console.log(error)
         }
     });
-
-    
-
-
-
-
-
-
-
-
-
-  
 </script>
 
+    <script>
+
+
+
+
+
+    </script>
+
+
+
+    <script src="Scripts/menuScript.js"></script>
+    <script>
+        KategoriListSelection();
+    </script>
   <section class="about_section layout_padding">
 
        <div class="tab-content" id="pills-tabContent" style="margin-left:50px; margin-right:50px; height:1250px;">
@@ -198,7 +233,7 @@
                             <div class="col-xl-6">
                                 <div class="card mb-4" style="padding-top:10px; padding-bottom:10px;">
                                     <div class="card-header" style="color:black; font-weight: bold;">
-                                         En Çok Tercih Edilin Ürünler
+                                         En Çok Tercih Edilin Kategoriler
                                     </div> 
                                     <div class="card-body">
                                     <canvas id="chart-line" width="100" height="50" class="chartjs-render-monitor"></canvas>
@@ -223,17 +258,17 @@
                           <div class="card-body">
 
 
-                              <asp:TextBox style="margin-bottom:5px;" class="form-control" ID="TextBox1" runat="server" placeholder="Ürün Adı"></asp:TextBox><br />
+                              <input style="margin-bottom:5px;" class="form-control" ID="TextBox1" name="TextBox1" placeholder="Ürün Adı"></input><br />
                               <label style="color:black;">Katagori Seçiniz :</label>
-                              <select class="form-select">
-                              <option value="1">One</option>
+                              <select id="kategoriSelection" class="form-select">
+                             
                               </select>
                               <br /><br />
-                              <asp:TextBox style="margin-bottom:5px;" class="form-control" ID="TextBox2" runat="server" placeholder="Ürün Açıklama"></asp:TextBox><br />
-                              <asp:TextBox style="margin-bottom:5px;" class="form-control" ID="TextBox3" runat="server" placeholder="Ürün Fiyatı"></asp:TextBox><br />
-                              <asp:TextBox style="margin-bottom:5px;" class="form-control" ID="TextBox4" runat="server" placeholder="Ürün Resim"></asp:TextBox><br />
+                              <input style="margin-bottom:5px;" class="form-control" ID="TextBox2"  name="TextBox2" placeholder="Ürün Açıklama"></input><br />
+                              <input style="margin-bottom:5px;" class="form-control" ID="TextBox3"  name="TextBox3" placeholder="Ürün Fiyatı"></input><br />
+                              <input style="margin-bottom:5px;" class="form-control" ID="TextBox4"  name="TextBox4" placeholder="Ürün Resim"></input><br />
 
-                              <asp:Button ID="Button3" class="btn btn-warning"  runat="server" style="color:white; float:right; width:150px;" OnClick="Button3_Click" Text="Ekle" />
+                              <Button ID="Button3" class="btn btn-warning"  style="color:white; float:right; width:150px;" OnClick="UrunEkle()" >Ekle</Button>
                           </div>
                         </div>
 
@@ -246,7 +281,7 @@
 
                               <asp:TextBox style="margin-bottom:5px;" class="form-control" ID="TextBox5" runat="server" placeholder="Katagori Adı"></asp:TextBox><br />
 
-                              <asp:Button ID="Button1" class="btn btn-warning"  runat="server" style="color:white; float:right; width:150px;" OnClick="Button3_Click" Text="Ekle" />
+                              <asp:Button ID="Button4" class="btn btn-warning"  runat="server" style="color:white; float:right; width:150px;" OnClick="Button4_Click" Text="Ekle" />
                           </div>
                         </div>
                        </div>

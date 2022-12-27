@@ -62,7 +62,21 @@ namespace CafeMaid
 
             return testObj;
         }
+        [WebMethod]
+        public static bool UrunEkle(string urunAd, string urunAciklama, string urunFiyat, string urunResim,string selectionId)
+        {
+            querryClass q = new querryClass();
 
+
+            urunModel nesne = new urunModel();
+            nesne.UrunAdi = urunAd;
+            nesne.UrunAciklama = urunAciklama;
+            nesne.KategoriId = Convert.ToInt32(selectionId);
+            nesne.UrunFiyat = Convert.ToInt32(urunFiyat);
+            nesne.UrunImage = urunResim;
+           return q.insertUrun(nesne);
+
+        }
 
         [WebMethod]
         public static bool AddBankKart(string kartSahibi,string kartNo,string kartCvc,string kartSKT)
