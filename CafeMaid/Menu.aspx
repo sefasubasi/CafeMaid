@@ -61,14 +61,14 @@ body {
         <script>sessionStorage.removeItem("urunId");</script>
 
   <section class="about_section layout_padding">
-
+      <div class="row">
       <div id="Menu-Content">
 
 
 
 
       </div>
-
+          </div>
       
         
 

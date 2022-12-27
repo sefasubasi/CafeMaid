@@ -402,6 +402,36 @@ function OdemeYap(kartId) {
 
 
 }
+
+function UrunEkle() {
+
+    $.ajax({
+        type: "POST",
+        contentType: "application/json; charset=utf-8",
+        //headers: {
+        //    "__RequestVerificationToken": getTextValue("tokenInput")
+        //},
+        url: ("Menu.aspx/UrunEkle"),
+        data: JSON.stringify({ urunAd: $("#TextBox1").val(), urunAciklama: $("#TextBox2").val(), urunFiyat: $("#TextBox3").val(), urunResim: $("#TextBox4").val(), selectionId: document.getElementById("kategoriSelection").value }),
+        dataType: "json",
+        success: function (data) {
+
+
+            console.log(data);
+            if (data.d) {
+
+                alert("Kayıt Başarılı");
+            }
+
+
+        },
+        error: function (req, status, error) {
+            console.log(error)
+        }
+    });
+
+}
+
 function AddBankKart() {
    
     $.ajax({
@@ -659,8 +689,8 @@ function KategoriList() {
 
                
                 //document.getElementById("footerDiv").innerHTML += generateItem(item.id,item.adi);
-                document.getElementById("down_menu_item").insertAdjacentHTML("afterbegin", generateKategoriItem(item.Id, item.Value))
-
+                document.getElementById("down_menu_item").insertAdjacentHTML("afterbegin", generateKategoriItem(item.Id, item.Value));
+               
             }
 
 
@@ -670,7 +700,43 @@ function KategoriList() {
         }
     });
 }
+function KategoriListSelection() {
+    $.ajax({
+        type: "POST",
+        contentType: "application/json; charset=utf-8",
+        //headers: {
+        //    "__RequestVerificationToken": getTextValue("tokenInput")
+        //},
+        url: ("Menu.aspx/GetKategoriList"),
+        data: JSON.stringify({ str: "AJAX TEST => " }),
+        dataType: "json",
+        success: function (data) {
 
+
+            console.log(data);
+            for (var i in data.d) {
+                var item = data.d[i];
+
+
+                //document.getElementById("footerDiv").innerHTML += generateItem(item.id,item.adi);
+               
+                document.getElementById("kategoriSelection").insertAdjacentHTML("afterbegin", generateKategoriSelectionItem(item.Id, item.Value));
+                
+            }
+
+
+        },
+        error: function (req, status, error) {
+            console.log(error)
+        }
+    });
+}
+function generateKategoriSelectionItem(id, isim) {
+
+    return "<option value='" + id + "'>" + isim + "</option>";
+
+
+}
 
 function generateKategoriItem(id, isim) {
 

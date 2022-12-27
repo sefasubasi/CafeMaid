@@ -174,7 +174,7 @@
     <%--<script>SepetOdemeListesi()</script>--%>
 
 
-
+ 
 
 
     <div class="hero_area">
@@ -270,7 +270,8 @@
                                     <ul class="dropdown-menu dropdown-menu-end" aria-labelledby="navbarDropdown">
                                         <li id="profil" ><a style="width:135px;" class="dropdown-item" href="Profil.aspx">Profil</a></li>
                                         <li><hr class="dropdown-divider" /></li>
-                                        <li id="cikis"><a style="width:135px" class="dropdown-item" href="Login.aspx">Çıkış</a></li>
+                                        <li id="cikis"><a href="Login.aspx" style="width:135px" class="dropdown-item" >Çıkış</a></li>
+                                        
                                     </ul>
                                 </li>
                             </ul>

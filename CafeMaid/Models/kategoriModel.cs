@@ -9,6 +9,7 @@ namespace CafeMaid.Models
     {
         private int id;
         private string value;
+        private int adet;
 
         public kategoriModel()
         {
@@ -22,5 +23,6 @@ namespace CafeMaid.Models
 
         public int Id { get => id; set => id = value; }
         public string Value { get => value; set => this.value = value; }
+        public int Adet { get => adet; set => adet = value; }
     }
 }
